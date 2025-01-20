@@ -10,5 +10,6 @@ cloudinary_python.txt
 env/
 django_step_by_step.md
 *.sqlite3
+db.sqlite3
 *.pyc
 __pycache__
