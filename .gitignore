@@ -8,3 +8,7 @@ node_modules/
 .github/
 cloudinary_python.txt
 env/
+django_step_by_step.md
+*.sqlite3
+*.pyc
+__pycache__
