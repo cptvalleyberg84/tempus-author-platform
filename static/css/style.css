@@ -1,4 +1,5 @@
 body {
+    font-family: "Libre Caslon Text", serif;
     padding-top: 72px;
     background: url('/media/cover-logo.jpg') no-repeat center center fixed;
     background-size: cover;
