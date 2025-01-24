@@ -34,18 +34,140 @@
     <title>Tempus Author Platform</title>
   </head>
   
-  <body>
-    <header class="container-fluid fixed-top"></header>
-
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <header class="container-fluid fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">Tempus A.P.</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">About</a>
+                    </li>
+                </ul>
+                <form class="d-flex mx-2">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- User Navbar -->
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href=""><i class="fas fa-user-cog"></i> Account Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                    <!-- Shopping Cart -->
+                    <li class="nav-item ms-2">
+                        <a href="" class="nav-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge bg-secondary">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+        </nav>
+    </header>
+    
+    <!-- Messages container -->
     {% if messages %}
-    <div class="message-container"></div>
+    <div class="message-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
     {% endif %}
 
+    <!-- Content blocks -->
     {% block page_header %}
     {% endblock %}
     
     {% block content %}
     {% endblock %}
 
-    </body>
+    <!-- Footer -->
+    <footer class="bg-light py-4 mt-5 mt-auto">
+        <div class="container">
+            <div class="row">
+                <!-- About Column -->
+                <div class="col-md-4 mb-3">
+                    <h5>Tempus Author Platform</h5>
+                    <p class="text-muted">Your gateway to extraordinary literary works and unique author experiences.</p>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-decoration-none text-muted">Home</a></li>
+                        <li><a href="" class="text-decoration-none text-muted">Works</a></li>
+                        <li><a href="" class="text-decoration-none text-muted">Blog</a></li>
+                        <li><a href="" class="text-decoration-none text-muted">About</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact & Social Column -->
+                <div class="col-md-4 mb-3">
+                    <h5>Connect With Us</h5>
+                    <div class="social-links mb-3">
+                        <a href="#" class="text-decoration-none text-muted me-2" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-decoration-none text-muted me-2" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-decoration-none text-muted" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p class="text-muted">
+                        <i class="fas fa-envelope me-2"></i> tempus@valleyberg.com<br>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="row mt-3">
+                <div class="col-12">
+                    <hr>
+                    <p class="text-center text-muted mb-0">
+                        © 2025 Tempus Author Platform. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </body>
 </html>
