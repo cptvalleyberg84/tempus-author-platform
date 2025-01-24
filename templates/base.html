@@ -91,14 +91,20 @@
                     {% endif %}
                     <!-- Shopping Cart -->
                     <li class="nav-item ms-2">
-                        <a href="" class="nav-link" aria-label="Shopping cart with 0 items">
-                            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                            <span class="badge bg-secondary" aria-label="0 items in cart">0</span>
+                        <a class="nav-link position-relative" href="" aria-label="View your library items">
+                            <div class="text-center">
+                                <i class="fas fa-book-reader" aria-hidden="true"></i>
+                                {% if items_count %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                        {{ items_count }}
+                                        <span class="visually-hidden">items in library</span>
+                                    </span>
+                                {% endif %}
+                            </div>
                         </a>
                     </li>
                 </ul>
             </div>
-            
         </nav>
     </header>
     
