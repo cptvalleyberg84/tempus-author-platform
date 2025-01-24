@@ -58,16 +58,17 @@
                         <a class="nav-link" href="">About</a>
                     </li>
                 </ul>
-                <form class="d-flex mx-2">
+                <!-- Search Form -->
+                <form class="d-flex mx-2" role="search" aria-label="Site search">
                     <div class="input-group">
                         <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit">
-                            <i class="fas fa-search"></i>
+                        <button class="btn btn-outline-secondary" type="submit" aria-label="Submit search">
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </button>
                     </div>
                 </form>
                 
-                <!-- User Navbar -->
+                <!-- User Dropdown Menu -->
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
@@ -75,9 +76,9 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href=""><i class="fas fa-user-cog"></i> Account Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                <li><a class="dropdown-item" href="" aria-label="Go to account settings"><i class="fas fa-user-cog" aria-hidden="true"></i> Account Settings</a></li>
+                                <li><hr class="dropdown-divider" aria-hidden="true"></li>
+                                <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Log out of account"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
@@ -90,9 +91,9 @@
                     {% endif %}
                     <!-- Shopping Cart -->
                     <li class="nav-item ms-2">
-                        <a href="" class="nav-link">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="badge bg-secondary">0</span>
+                        <a href="" class="nav-link" aria-label="Shopping cart with 0 items">
+                            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                            <span class="badge bg-secondary" aria-label="0 items in cart">0</span>
                         </a>
                     </li>
                 </ul>
@@ -103,7 +104,7 @@
     
     <!-- Messages container -->
     {% if messages %}
-    <div class="message-container">
+    <div class="message-container" role="alert" aria-live="polite">
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                 {{ message }}
@@ -132,12 +133,16 @@
                 
                 <!-- Quick Links Column -->
                 <div class="col-md-4 mb-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'home' %}" class="text-decoration-none text-muted">Home</a></li>
-                        <li><a href="" class="text-decoration-none text-muted">Works</a></li>
-                        <li><a href="" class="text-decoration-none text-muted">Blog</a></li>
-                        <li><a href="" class="text-decoration-none text-muted">About</a></li>
+                    <h5 id="quick-links-heading">Quick Links</h5>
+                    <ul class="list-unstyled" aria-labelledby="quick-links-heading">
+                        <li><a href="{% url 'home' %}" class="text-decoration-none text-muted" 
+                            aria-label="Go to home page">Home</a></li>
+                        <li><a href="" class="text-decoration-none text-muted" 
+                            aria-label="View all works">Works</a></li>
+                        <li><a href="" class="text-decoration-none text-muted" 
+                            aria-label="Read our blog">Blog</a></li>
+                        <li><a href="" class="text-decoration-none text-muted" 
+                            aria-label="Learn about us">About</a></li>
                     </ul>
                 </div>
                 
@@ -145,15 +150,22 @@
                 <div class="col-md-4 mb-3">
                     <h5>Connect With Us</h5>
                     <div class="social-links mb-3">
-                        <a href="#" class="text-decoration-none text-muted me-2" target="_blank" rel="noopener noreferrer"
-                        aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-decoration-none text-muted me-2" target="_blank" rel="noopener noreferrer"
-                        aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-decoration-none text-muted" target="_blank" rel="noopener noreferrer"
-                        aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-decoration-none text-muted me-2" target="_blank" 
+                            rel="noopener noreferrer" aria-label="Visit our Facebook page">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none text-muted me-2" target="_blank" 
+                            rel="noopener noreferrer" aria-label="Visit our Instagram page">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none text-muted" target="_blank" 
+                            rel="noopener noreferrer" aria-label="Visit our LinkedIn page">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
                     </div>
                     <p class="text-muted">
-                        <i class="fas fa-envelope me-2"></i> tempus@valleyberg.com<br>
+                        <i class="fas fa-envelope me-2" aria-hidden="true"></i>
+                        <span aria-label="Email address">tempus@valleyberg.com</span><br>
                     </p>
                 </div>
             </div>
