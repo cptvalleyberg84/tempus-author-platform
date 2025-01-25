@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Image Column -->
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card border-0">
+                {% if work.image %}
+                    <img src="{{ work.image.url }}" class="card-img-top img-fluid" alt="{{ work.name }}">
+                {% else %}
+                    <img src="{% static 'images/noimage.png' %}" class="card-img-top img-fluid" alt="{{ work.name }}">
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Details Column -->
+        <div class="col-12 col-md-6 col-lg-8">
+            <h1 class="mb-4">{{ work.name }}</h1>
+            
+            <!-- Category Badge -->
+            <div class="mb-3">
+                <span class="badge bg-primary">{{ work.category.friendly_name }}</span>
+            </div>
+
+            <!-- Price and Rating Row -->
+            <div class="row mb-4">
+                <div class="col-6">
+                    <h2 class="text-primary mb-0">${{ work.price }}</h2>
+                </div>
+                <div class="col-6">
+                    {% if work.rating %}
+                        <p class="mb-0">
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="h5">{{ work.rating }} / 5</span>
+                        </p>
+                    {% else %}
+                        <p class="text-muted mb-0">No rating yet</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Additional Details -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title h5">Work Details</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="mb-2">
+                                <i class="fas fa-book me-2"></i>
+                                <span>Pages: 300</span>
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-clock me-2"></i>
+                                <span>Reading time: ~5 hours</span>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="mb-2">
+                                <i class="fas fa-language me-2"></i>
+                                <span>Language: English</span>
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                <span>Published: {{ work.created_date|date:"F j, Y" }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+                <h3>Description</h3>
+                <p class="lead">{{ work.description|linebreaks }}</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2 d-md-flex">
+                <button class="btn btn-primary btn-lg">Add to Cart</button>
+                <a href="{% url 'works' %}" class="btn btn-outline-secondary btn-lg">Back to Works</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#excerpt">Excerpt</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#reviews">Reviews</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="excerpt">
+                            <p>Sample excerpt from the work...</p>
+                        </div>
+                        <div class="tab-pane fade" id="reviews">
+                            <p>No reviews yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

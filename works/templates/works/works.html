@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center my-4">Our Works</h2>
+        </div>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for work in works %}
+            <div class="col">
+                <div class="card h-100">
+                    {% if work.image %}
+                        <img src="{{ work.image.url }}" class="card-img-top img-fluid" alt="{{ work.name }}">
+                    {% else %}
+                        <img src="{% static 'images/noimage.png' %}" class="card-img-top img-fluid" alt="{{ work.name }}">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ work.name }}</h5>
+                        <p class="card-text">{{ work.description|truncatewords:20 }}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">${{ work.price }}</span>
+                            <span class="badge bg-primary">{{ work.category.friendly_name }}</span>
+                        </div>
+
+                        {% if work.rating %}
+                            <small class="text-muted">Rating: {{ work.rating }} / 5</small>
+                        {% else %}
+                            <small class="text-muted">No rating yet</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="{% url 'work_detail' work.id %}" class="btn btn-outline-primary w-100">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
