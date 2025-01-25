@@ -6,13 +6,6 @@ body {
     height: calc(100vh - 164px);
 }
 
-.message-container {
-    position: fixed;
-    top: 72px;
-    right: 15px;
-    z-index: 99999;
-}
-
 .social-links a {
     font-size: 1.2rem;
     transition: color 0.3s ease;
@@ -25,3 +18,4 @@ body {
 .block {
     color: white;
 }
+
