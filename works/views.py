@@ -1,18 +1,22 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from .models import Product, Category
 
 
 def all_works(request):
     """A view that displays All the Products in the Works page"""
     works = Product.objects.all()
-    categories = None
+    categories = Category.objects.all()
+    current_category = None
 
     if 'category' in request.GET:
-        categories = request.GET['category'].split(',')
-        works = works.filter(category__name__in=categories)
+        category_name = request.GET['category']
+        works = works.filter(category__name=category_name)
+        current_category = category_name
 
     context = {
         'works': works,
+        'categories': categories,
+        'current_category': current_category
     }
 
     return render(request, 'works/works.html', context)
