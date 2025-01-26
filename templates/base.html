@@ -92,7 +92,7 @@
                     {% endif %}
                     <!-- Shopping Cart -->
                     <li class="nav-item ms-2">
-                        <a class="nav-link position-relative" href="" aria-label="View your library items">
+                        <a class="nav-link position-relative" href="{% url 'view_book_cart' %}" aria-label="View your library items">
                             <div class="text-center">
                                 <i class="fas fa-book-reader" aria-hidden="true"></i>
                                 {% if items_count %}

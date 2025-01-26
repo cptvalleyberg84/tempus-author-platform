@@ -32,3 +32,8 @@ def work_detail(request, work_id):
     }
 
     return render(request, 'works/work_detail.html', context)
+
+
+def view_book_cart(request):
+    """ A view that renders the book cart contents page """
+    return render(request, 'works/book_cart.html')
