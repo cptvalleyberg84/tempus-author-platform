@@ -89,12 +89,13 @@
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="mb-3">
-                        <label for="id_qty_{{ product.id }}" class="form-label"><strong>Quantity:</strong></label>
+                        <label for="id_qty_{{ work.id }}" class="form-label"><strong>Quantity:</strong></label>
                         <div class="input-group w-25">
-                            <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="99" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
+                            <button class="btn btn-outline-secondary decrement-btn" type="button" data-item_id="{{ work.id }}" id="decrement-btn_{{ work.id }}">-</button>
+                            <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="99" data-item_id="{{ work.id }}" id="id_qty_{{ work.id }}">
+                            <button class="btn btn-outline-secondary increment-btn" type="button" data-item_id="{{ work.id }}" id="increment-btn_{{ work.id }}">+</button>
                         </div>
                     </div>
-            
                     <div class="d-flex gap-2">
                         <input type="submit" class="btn btn-primary" value="Add to Cart">
                         <a href="{% url 'works' %}" class="btn btn-outline-secondary">Back to Works</a>
@@ -133,4 +134,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

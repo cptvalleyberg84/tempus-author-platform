@@ -15,8 +15,77 @@
     <div class="row">
         <div class="col">
             {% if bookcart_items %}
-                <div class="table-responsive rounded"></div>
-                {{ bookcart_items }}
+            <div class="table-responsive rounded">
+                <table class="table table-sm table-borderless">
+                    <thead class="text-black">
+                        <tr>
+                            <th scope="col">Book Cover</th>
+                            <th scope="col">Titlte</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+
+                    {% for item in bookcart_items %}
+                        <tr>
+                            <td class="p-3 w-25">
+                                {% if item.image %}
+                                    <img class="img-fluid rounded" src="{{ item.image.url }}" alt="{{ item.title }}">
+                                {% else %}
+                                    <img class="img-fluid rounded" src="{% static 'images/noimage.png' %}" alt="{{ item.title }}">
+                                {% endif %}
+                            </td>
+                            <td class="py-3">
+                                <p class="my-0"><strong>{{ item.title }}</strong></p>
+                                <p class="my-0 small text-muted">Category: {{ item.category }}</p>
+                            </td>
+                            <td class="py-3">
+                                <p class="my-0">${{ item.price }}</p>
+                            </td>
+                            <td class="py-3 w-25">
+                                <form class="form update-form" method="POST" action="">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="mb-3">
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-secondary btn-sm decrement-btn" type="button" data-item_id="{{ item.id }}" id="decrement-btn_{{ item.id }}">-</button>
+                                                <input class="form-control form-control-sm qty_input" type="number" name="quantity" value="{{item.quantity}}" min="1" max="99" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
+                                                <button class="btn btn-outline-secondary btn-sm increment-btn" type="button" data-item_id="{{ item.id }}" id="increment-btn_{{ item.id }}">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <a class="update-link text-info"><small>Update</small></a>
+                                <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}"><small>Remove</small></a>
+                                <!-- <p class="my-0">{{ item.quantity }}</p> -->
+                            </td>
+                            <td class="py-3">
+                                <p class="my-0">${{ item.subtotal }}</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="5" class="pt-5 text-end">
+                            <h6><strong>Cart Total: ${{ total }}</strong></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-end">
+                            <a href="{% url 'works' %}" class="btn btn-outline-primary">
+                                <span>Back to Works</span>
+                            </a>
+                            <a href="#" class="btn btn-primary">
+                                <span class="text-uppercase">Secure Checkout</span>
+                                <span class="icon">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             {% else %}
                 <p class="lead mb-5">Your bookcart is empty.</p>
                 <a href="{% url 'works' %}" class="btn btn-outline-black rounded-0 btn-lg">
@@ -30,3 +99,8 @@
     </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
+
