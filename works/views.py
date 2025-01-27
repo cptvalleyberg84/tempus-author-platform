@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib import messages
 from .models import Product, Category
 
 
@@ -54,3 +55,33 @@ def add_to_bookcart(request, work_id):
 
     request.session['bookcart'] = bookcart
     return redirect(redirect_url)
+
+
+def adjust_bookcart(request, work_id):
+    """ Adjust the quantity of the specified product """
+
+    quantity = int(request.POST.get('quantity'))
+    bookcart = request.session.get('bookcart', {})
+
+    if quantity > 0:
+        bookcart[work_id] = quantity
+    else:
+        bookcart.pop(work_id)
+
+    request.session['bookcart'] = bookcart
+    return redirect(reverse('view_bookcart'))
+
+
+def remove_from_bookcart(request, work_id):
+    """ Remove the book from the book cart """
+
+    try:
+        bookcart = request.session.get('bookcart', {})
+        bookcart.pop(str(work_id))
+        request.session['bookcart'] = bookcart
+        messages.success(request, 'Item removed from cart')
+        return redirect('view_bookcart')
+
+    except Exception as e:
+        messages.error(request, f'Error removing item: {e}')
+        return redirect('view_bookcart')
