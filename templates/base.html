@@ -90,14 +90,15 @@
                             <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                         </li>
                     {% endif %}
-                    <!-- Shopping Cart -->
+                    <!-- Bookcart Icon -->
                     <li class="nav-item ms-2">
                         <a class="nav-link position-relative" href="{% url 'view_bookcart' %}" aria-label="View your library items">
                             <div class="text-center">
                                 <i class="fas fa-book-reader" aria-hidden="true"></i>
-                                {% if items_count %}
+                                <!-- Bookcart Badge -->
+                                {% if product_count %}
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                                        {{ items_count }}
+                                        {{ product_count }}
                                         <span class="visually-hidden">items in library</span>
                                     </span>
                                 {% endif %}

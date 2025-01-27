@@ -1,4 +1,6 @@
 from decimal import Decimal
+from django.shortcuts import get_object_or_404
+from works.models import Product
 
 
 def bookcart_contents(request):
@@ -9,23 +11,23 @@ def bookcart_contents(request):
 
     total = Decimal('0.00')
     product_count = 0
-    cart_items = []
+    bookcart_items = []
 
-    for item_id, item_data in bookcart.items():
-        total += Decimal(str(item_data['price'])) * item_data['quantity']
-        product_count += item_data['quantity']
-        cart_items.append({
+    for item_id, quantity in bookcart.items():
+        book = get_object_or_404(Product, pk=item_id)
+        total += book.price * quantity
+        product_count += quantity
+        bookcart_items.append({
             'item_id': item_id,
-            'quantity': item_data['quantity'],
-            'price': item_data['price'],
-            'format': item_data['format'],
-            'title': item_data['title'],
-            'subtotal': Decimal(str(item_data['price']))*item_data['quantity']
+            'quantity': quantity,
+            'price': book.price,
+            'title': book.name,
+            'subtotal': Decimal(str(book.price * quantity))
         })
 
     context = {
         'bookcart': bookcart,
-        'cart_items': cart_items,
+        'bookcart_items': bookcart_items,
         'total': total,
         'product_count': product_count,
     }
