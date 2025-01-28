@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.http import HttpResponse
 from django.contrib import messages
 from .models import Product, Category
 
@@ -79,9 +80,9 @@ def remove_from_bookcart(request, work_id):
         bookcart = request.session.get('bookcart', {})
         bookcart.pop(str(work_id))
         request.session['bookcart'] = bookcart
-        messages.success(request, 'Item removed from cart')
-        return redirect('view_bookcart')
+        messages.success(request, 'Item removed from the bookcart')
+        return redirect(reverse('view_bookcart'))
 
     except Exception as e:
         messages.error(request, f'Error removing item: {e}')
-        return redirect('view_bookcart')
+        return HttpResponse(status=500)
