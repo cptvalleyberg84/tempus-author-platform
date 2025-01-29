@@ -45,11 +45,19 @@ def checkout(request):
                     )
                 except Product.DoesNotExist:
                     messages.error(request, (
-                        "One of the products in your bag wasn't found in our "
-                        "database. Please contact us for assistance!"
+                        "Something not found."
                     ))
                     order.delete()
                     return redirect(reverse('view_bag'))
+
+            # Calculate total
+            total = sum(
+                item.product.price * item.quantity 
+                for item in order.orderitem_set.all()
+            )
+            print(f"Calculated total: {total}")
+            order.total = total
+            order.save()
 
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse(
@@ -97,6 +105,10 @@ def checkout_success(request, order_id):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, id=order_id)
+    total = sum(
+        item.product.price * item.quantity 
+        for item in order.orderitem_set.all()
+    )
 
     if 'bookcart' in request.session:
         del request.session['bookcart']
@@ -107,6 +119,7 @@ def checkout_success(request, order_id):
 
     context = {
         'order': order,
+        'total': total,
     }
 
     return render(request, 'checkout/checkout_success.html', context)
