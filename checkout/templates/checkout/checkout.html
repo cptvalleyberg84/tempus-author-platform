@@ -32,7 +32,12 @@
             {% for item in bookcart_items %}
                 <div class="row">
                     <div class="col-2 mb-1">
-                        <a href="{% url 'work_detail' item.product.id %}">
+                        {% if item.product.id %}
+                            <a href="{% url 'work_detail' item.product.id %}">{{ item.product.name }}</a>
+                        {% else %}
+                            {{ item.product.name }}
+                        {% endif %}
+                        
                             {% if item.product.image %}
                                 <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
                             {% else %}

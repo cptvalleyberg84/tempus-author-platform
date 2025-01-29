@@ -29,7 +29,7 @@ class Order(models.Model):
     def update_total(self):
         """Calculate and update the total amount from all order items"""
         total = self.orderitem_set.aggregate(
-            total=Sum(F('quantity') * F('price'))
+            total=Sum(F('quantity') * F('price')) or 0
         )['total'] or 0
         self.total_amount = total
         self.save()
