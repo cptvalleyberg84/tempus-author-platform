@@ -28,6 +28,8 @@ def checkout(request):
         'order_form': order_form,
         'bookcart_items': bookcart_items,
         'total': total,
+        'stripe_public_key': 'pk_test_51QmWO4En1h0dKKSU7OPxOupjlHswRHd6DnLc8U163JggKSxxdEXIBOPhxfHKRLE6VrARigAxpP1MIdIv4yPbZgO200MbeMAuB3',
+        'client_secret': 'test client secret',
     }
 
     template = 'checkout/checkout.html'
