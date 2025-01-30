@@ -73,6 +73,15 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_bookcart'))
 
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order.user_profile = profile
+                order.user = request.user
+                order.save()
+            except UserProfile.DoesNotExist:
+                pass
+
             # Calculate total
             total = sum(
                 item.product.price * item.quantity

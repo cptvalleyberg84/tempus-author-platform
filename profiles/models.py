@@ -37,7 +37,7 @@ class UserProfile(models.Model):
         max_length=20, null=True, blank=True
     )
 
-    profile_address1 = models.CharField(max_length=255)
+    profile_address1 = models.CharField(max_length=255, blank=True, null=True)
     profile_address2 = models.CharField(max_length=255, blank=True, null=True)
     profile_city = models.CharField(max_length=100, null=True, blank=True)
 
@@ -49,7 +49,7 @@ class UserProfile(models.Model):
     )
 
     profile_country = CountryField(
-        blank_label='Country *', null=True, blank=True
+        blank_label='Country', null=True, blank=True
     )
 
     profile_created = models.DateTimeField(auto_now_add=True)

@@ -3,17 +3,28 @@ from django.conf import settings
 from django.db.models import Sum, F
 from django_countries.fields import CountryField
 from django.core.validators import RegexValidator
+from profiles.models import UserProfile
 
 
 # Create your models here.
 class Order(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+
+    user_profile = models.ForeignKey(
+        UserProfile,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='orders'
     )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='user_orders'
+    )
+
     total_amount = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0
     )

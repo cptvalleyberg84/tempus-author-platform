@@ -1,0 +1,38 @@
+from django import forms
+from .models import UserProfile
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user',)
+
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'profile_full_name': 'Full Name',
+            'profile_email': 'Email Address',
+            'profile_phone_number': 'Phone Number',
+            'profile_address1': 'Street Address',
+            'profile_address2': 'Apartment, suite, etc. (optional)',
+            'profile_city': 'City',
+            'profile_postcode': 'Postal Code',
+            'profile_country': 'Country',
+            'profile_image': 'Profile Image',
+            'profile_bio': 'Bio',
+        }
+
+        self.fields['profile_phone_number'].widget.attrs['autofocus'] = True
+        for field in self.fields:
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['class'] = (
+                'rounder-0 profile-form-input')
+            self.fields[field].label = False
