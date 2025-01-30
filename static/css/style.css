@@ -18,3 +18,20 @@ body {
 .block {
     color: white;
 }
+
+/* Allauth form formating */
+.allauth-form-inner-content p {
+    margin-top: 1.5rem;
+}
+
+.allauth-form-inner-content input {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.allauth-form-inner-content input::placeholder {
+    color: #807c7c;
+}
+.allauth-form-inner-content label:not [for="id_remember"]{
+    display: none;
+}

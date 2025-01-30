@@ -1,14 +1,15 @@
-{% extends "allauth/layouts/entrance.html" %}
-{% load i18n %}
-{% load allauth %}
-{% block head_title %}
-    {% translate "Account Inactive" %}
-{% endblock head_title %}
+{% extends "base.html" %}
+
 {% block content %}
-    {% element h1 %}
-        {% translate "Account Inactive" %}
-    {% endelement %}
-    {% element p %}
-        {% translate "This account is inactive." %}
-    {% endelement %}
+<div class="container header-container">
+    <div class="overlay"></div>
+    <div class="row">
+        <div class="col-6">
+            <div class="allauth-form-inner-content">
+                {% block inner_content %}
+                {% endblock inner_content %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

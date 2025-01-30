@@ -89,7 +89,7 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="" aria-label="Go to account settings"><i class="fas fa-user-cog" aria-hidden="true"></i> Account Settings</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' %}" aria-label="Go to account settings"><i class="fas fa-user-cog" aria-hidden="true"></i> Account Settings</a></li>
                                 <li><hr class="dropdown-divider" aria-hidden="true"></li>
                                 <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Log out of account"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
                             </ul>
@@ -159,7 +159,7 @@
                     <ul class="list-unstyled" aria-labelledby="quick-links-heading">
                         <li><a href="{% url 'home' %}" class="text-decoration-none text-muted" 
                             aria-label="Go to home page">Home</a></li>
-                        <li><a href="" class="text-decoration-none text-muted" 
+                        <li><a href="{% url 'works' %}" class="text-decoration-none text-muted" 
                             aria-label="View all works">Works</a></li>
                         <li><a href="" class="text-decoration-none text-muted" 
                             aria-label="Read our blog">Blog</a></li>
