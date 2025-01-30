@@ -52,7 +52,7 @@ def checkout(request):
 
             # Calculate total
             total = sum(
-                item.product.price * item.quantity 
+                item.product.price * item.quantity
                 for item in order.orderitem_set.all()
             )
             print(f"Calculated total: {total}")
@@ -68,7 +68,7 @@ def checkout(request):
     else:
         bookcart = request.session.get('bookcart', {})
         if not bookcart:
-            messages.error(request, 
+            messages.error(request,
                            "You ain't having no books in your bookcart.")
             return redirect(reverse('all_works'))
 
@@ -106,7 +106,7 @@ def checkout_success(request, order_id):
     """
     order = get_object_or_404(Order, id=order_id)
     total = sum(
-        item.product.price * item.quantity 
+        item.product.price * item.quantity
         for item in order.orderitem_set.all()
     )
 

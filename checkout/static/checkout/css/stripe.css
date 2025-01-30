@@ -63,3 +63,12 @@ select.form-control {
     margin: 0;
     height: 100%;
 }
+
+/* Postcode help text */
+#id_billing_postcode_helptext {
+    color: white !important;
+}
+/* Country list */
+select:invalid {
+    color: #6c757d !important;
+}

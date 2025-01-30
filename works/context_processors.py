@@ -21,9 +21,7 @@ def bookcart_contents(request):
             'item_id': item_id,
             'quantity': quantity,
             'price': book.price,
-            'title': book.name,
-            'image': book.image,
-            'category': book.category,
+            'product': book,
             'subtotal': Decimal(str(book.price * quantity))
         })
 

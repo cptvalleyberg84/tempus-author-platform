@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import Sum, F
+from django_countries.fields import CountryField
+from django.core.validators import RegexValidator
 
 
 # Create your models here.
@@ -16,6 +18,11 @@ class Order(models.Model):
     )
     order_date = models.DateTimeField(auto_now_add=True)
 
+    postcode_validator = RegexValidator(
+        regex=r'^[A-Za-z0-9]{4,6}$',
+        message='Postcode must be 4-6 characters. Only letters and numbers'
+    )
+
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
@@ -23,8 +30,16 @@ class Order(models.Model):
     billing_address1 = models.CharField(max_length=255)
     billing_address2 = models.CharField(max_length=255, blank=True, null=True)
     billing_city = models.CharField(max_length=100, null=False, blank=False)
-    billing_postcode = models.CharField(max_length=20, null=False, blank=False)
-    billing_country = models.CharField(max_length=100, null=False, blank=False)
+    billing_postcode = models.CharField(
+        max_length=6,
+        null=False,
+        blank=False,
+        validators=[postcode_validator],
+        help_text='Enter a 4-6 digit postcode.'
+    )
+    billing_country = CountryField(
+        blank_label='Country *', null=False, blank=False
+    )
 
     def update_total(self):
         """Calculate and update the total amount from all order items"""
