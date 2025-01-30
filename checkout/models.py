@@ -9,9 +9,10 @@ from django.core.validators import RegexValidator
 class Order(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        null=False,
-        blank=False,
-        on_delete=models.CASCADE
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='orders'
     )
     total_amount = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0

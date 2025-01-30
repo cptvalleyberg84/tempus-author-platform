@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from works.models import Product
+from profiles.models import UserProfile
 from .models import OrderItem, Order
 from .forms import OrderForm
 from works.context_processors import bookcart_contents
@@ -11,6 +12,25 @@ import stripe
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    if request.user.is_authenticated:
+        try:
+            profile = request.user.userprofile
+            initial_data = {
+                'full_name': profile.profile_full_name,
+                'email': profile.profile_email,
+                'phone_number': profile.profile_phone_number,
+                'address1': profile.profile_address1,
+                'address2': profile.profile_address2,
+                'city': profile.profile_city,
+                'postcode': profile.profile_postcode,
+                'country': profile.profile_country,
+            }
+            order_form = OrderForm(initial=initial_data)
+        except UserProfile.DoesNotExist:
+            order_form = OrderForm()
+    else:
+        order_form = OrderForm()
 
     if request.method == 'POST':
         bookcart = request.session.get('bookcart', {})
@@ -32,6 +52,9 @@ def checkout(request):
             order.user = request.user
             order.save()
 
+            if 'save-info' in request.POST:
+                request.session['save_info'] = request.POST['save-info']
+
             for item_id, quantity in bookcart.items():
                 try:
                     product = Product.objects.get(pk=item_id)
@@ -48,7 +71,7 @@ def checkout(request):
                         "Something not found."
                     ))
                     order.delete()
-                    return redirect(reverse('view_bag'))
+                    return redirect(reverse('view_bookcart'))
 
             # Calculate total
             total = sum(
@@ -109,6 +132,20 @@ def checkout_success(request, order_id):
         item.product.price * item.quantity
         for item in order.orderitem_set.all()
     )
+
+    if request.user.is_authenticated:
+        profile = request.user.userprofile
+        # Save the user's info
+        if 'save_info' in request.session:
+            profile.profile_full_name = order.full_name
+            profile.profile_email = order.email
+            profile.profile_phone_number = order.phone_number
+            profile.profile_address1 = order.billing_address1
+            profile.profile_address2 = order.billing_address2
+            profile.profile_city = order.billing_city
+            profile.profile_postcode = order.billing_postcode
+            profile.profile_country = order.billing_country
+            profile.profile_save()
 
     if 'bookcart' in request.session:
         del request.session['bookcart']
