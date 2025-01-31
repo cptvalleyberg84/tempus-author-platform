@@ -144,12 +144,21 @@
         </div>
         <div class="row">
             <div class="col-12">
+                {% if from_profile %}
+                <a href="{% url 'profile' %}" class="btn btn-black rounded-0 my-2">
+                    <span class="icon mr-2">
+                        <i class="text-white fas fa-user"></i>
+                    </span>
+                    <span class="text-uppercase text-white">Back to Profile</span>
+                </a>
+                {% else %}
                 <a href="{% url 'works' %}" class="btn btn-black rounded-0 my-2">
                     <span class="icon mr-2">
                         <i class="text-white fas fa-gifts"></i>
                     </span>
                     <span class="text-uppercase text-white">Back to All Works</span>
                 </a>
+                {% endif %}
             </div>
         </div>
         {% if user.is_authenticated and not 'save_info' in request.session %}

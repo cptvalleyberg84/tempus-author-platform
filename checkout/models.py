@@ -32,7 +32,10 @@ class Order(models.Model):
 
     postcode_validator = RegexValidator(
         regex=r'^[A-Za-z0-9]{4,6}$',
-        message='Postcode must be 4-6 characters. Only letters and numbers'
+        message=(
+            'Postcode must be 4-6 characters and contain only letters and '
+            'numbers'
+        )
     )
 
     full_name = models.CharField(max_length=50, null=False, blank=False)
@@ -47,7 +50,7 @@ class Order(models.Model):
         null=False,
         blank=False,
         validators=[postcode_validator],
-        help_text='Enter a 4-6 digit postcode.'
+        help_text='Enter a 4-6 characrters of postcode.'
     )
     billing_country = CountryField(
         blank_label='Country *', null=False, blank=False
@@ -69,8 +72,16 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey('Order', on_delete=models.CASCADE)
-    product = models.ForeignKey('works.Product', on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        'Order',
+        on_delete=models.CASCADE,
+        related_name='items'
+    )
+    product = models.ForeignKey(
+        'works.Product',
+        on_delete=models.CASCADE,
+        related_name='order_items'
+    )
     quantity = models.IntegerField()
     price = models.DecimalField(
         max_digits=10, decimal_places=2, editable=False
@@ -92,4 +103,7 @@ class OrderItem(models.Model):
         order.update_total()
 
     def __str__(self):
-        return f"Order #{self.order.id} - Product: {self.product.name}"
+        return (
+            f"{self.quantity} x {self.product.name} "
+            f"on order {self.order.id}"
+        )

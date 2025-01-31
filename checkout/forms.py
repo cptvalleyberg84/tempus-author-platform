@@ -1,3 +1,4 @@
+import re
 from django import forms
 from .models import Order, OrderItem
 
@@ -15,6 +16,15 @@ class OrderForm(forms.ModelForm):
             'billing_postcode',
             'billing_country',
         )
+
+    def clean_billing_postcode(self):
+        postcode = self.cleaned_data.get('billing_postcode')
+        if not re.match(r'^[A-Za-z0-9]{4,6}$', postcode):
+            raise forms.ValidationError(
+                'Postcode must be 4-6 characters and contain only letters and '
+                'numbers'
+            )
+        return postcode
 
     def __init__(self, *args, **kwargs):
         """

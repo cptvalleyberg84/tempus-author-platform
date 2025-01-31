@@ -85,3 +85,33 @@ card.mount('#card-element');
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const postcodeInput = document.getElementById('id_billing_postcode');
+    if (postcodeInput) {
+        postcodeInput.addEventListener('input', function(e) {
+            const postcode = e.target.value;
+            const postcodeRegex = /^[A-Za-z0-9]{4,6}$/;
+            const errorDiv = document.getElementById('postcode-error');
+            const submitButton = document.getElementById('submit-button');
+            
+            if (!postcodeRegex.test(postcode)) {
+                if (!errorDiv) {
+                    const div = document.createElement('div');
+                    div.id = 'postcode-error';
+                    div.className = 'invalid-feedback d-block';
+                    div.textContent = 'Postcode must be 4-6 characters and contain only letters and numbers';
+                    e.target.classList.add('is-invalid');
+                    e.target.parentNode.appendChild(div);
+                }
+                submitButton.disabled = true;
+            } else {
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+                e.target.classList.remove('is-invalid');
+                submitButton.disabled = false;
+            }
+        });
+    }
+});

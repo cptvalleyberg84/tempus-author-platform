@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.conf import settings
 from works.models import Product
 from profiles.models import UserProfile
+from profiles.forms import UserProfileForm
 from .models import OrderItem, Order
 from .forms import OrderForm
 from works.context_processors import bookcart_contents
@@ -13,27 +14,10 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    if request.user.is_authenticated:
-        try:
-            profile = request.user.userprofile
-            initial_data = {
-                'full_name': profile.profile_full_name,
-                'email': profile.profile_email,
-                'phone_number': profile.profile_phone_number,
-                'address1': profile.profile_address1,
-                'address2': profile.profile_address2,
-                'city': profile.profile_city,
-                'postcode': profile.profile_postcode,
-                'country': profile.profile_country,
-            }
-            order_form = OrderForm(initial=initial_data)
-        except UserProfile.DoesNotExist:
-            order_form = OrderForm()
-    else:
-        order_form = OrderForm()
-
     if request.method == 'POST':
-        bookcart = request.session.get('bookcart', {})
+        bookcart = request.session.get(
+            'bookcart', {}
+        )
 
         form_data = {
             'full_name': request.POST['full_name'],
@@ -48,60 +32,72 @@ def checkout(request):
 
         order_form = OrderForm(form_data)
         if order_form.is_valid():
-            order = order_form.save(commit=False)
-            order.user = request.user
-            order.save()
-
-            if 'save-info' in request.POST:
-                request.session['save_info'] = request.POST['save-info']
-
-            for item_id, quantity in bookcart.items():
-                try:
-                    product = Product.objects.get(pk=item_id)
-                    if isinstance(quantity, list):
-                        quantity = sum(quantity)
-
-                    OrderItem.objects.create(
-                        order=order,
-                        product=product,
-                        quantity=quantity
-                    )
-                except Product.DoesNotExist:
-                    messages.error(request, (
-                        "Something not found."
-                    ))
-                    order.delete()
-                    return redirect(reverse('view_bookcart'))
-
-        if request.user.is_authenticated:
             try:
-                profile = UserProfile.objects.get(user=request.user)
-                order.user_profile = profile
-                order.user = request.user
+                order = order_form.save(commit=False)
+                if request.user.is_authenticated:
+                    order.user = request.user
                 order.save()
-            except UserProfile.DoesNotExist:
-                pass
 
-            # Calculate total
-            total = sum(
-                item.product.price * item.quantity
-                for item in order.orderitem_set.all()
-            )
-            print(f"Calculated total: {total}")
-            order.total = total
-            order.save()
+                # Create order items
+                for item_id, quantity in bookcart.items():
+                    try:
+                        product = Product.objects.get(pk=item_id)
+                        if isinstance(quantity, list):
+                            quantity = sum(quantity)
 
-            request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse(
-                'checkout_success', args=[order.id]))
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product,
+                            quantity=quantity
+                        )
+                    except Product.DoesNotExist:
+                        messages.error(request, "Product not found.")
+                        order.delete()
+                        return redirect(reverse('view_bookcart'))
+
+                # Handle authenticated user profile
+                if request.user.is_authenticated:
+                    try:
+                        profile = UserProfile.objects.get(user=request.user)
+                        order.user_profile = profile
+                        order.save()
+
+                        # Calculate and save total
+                        total = sum(
+                            item.product.price * item.quantity
+                            for item in order.orderitem_set.all()
+                        )
+                        order.total = total
+                        order.save()
+
+                        if 'save-info' in request.POST:
+                            request.session['save_info'] = True
+
+                        return redirect(reverse(
+                            'checkout_success', args=[order.id]))
+                    except UserProfile.DoesNotExist:
+                        messages.error(request, 'Profile not found.')
+                        return redirect(reverse('view_bookcart'))
+
+                # For non-authenticated users
+                return redirect(reverse('checkout_success', args=[order.id]))
+
+            except Exception as e:
+                messages.error(
+                    request, f'Error processing your order: {str(e)}'
+                )
+                return redirect(reverse('view_bookcart'))
         else:
-            messages.error(request, 'There was an error with your form. \
-                Please double check your information.')
+            messages.error(request, f'Form errors: {order_form.errors}')
+            return redirect(reverse('view_bookcart'))
+
+    # GET request handling
     else:
         bookcart = request.session.get('bookcart', {})
         if not bookcart:
-            messages.error(request,
-                           "You ain't having no books in your bookcart.")
+            messages.error(
+                request, "You ain't having no books in your bookcart."
+            )
             return redirect(reverse('all_works'))
 
         current_bookcart = bookcart_contents(request)
@@ -114,12 +110,25 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        order_form = OrderForm()
-
-    if not stripe_public_key:
-        messages.warning(request, 'Stripe public key is missing!')
-    if not stripe_secret_key:
-        messages.warning(request, 'Stripe secret key is missing!')
+        # Pre-fill form for authenticated users
+        if request.user.is_authenticated:
+            try:
+                profile = request.user.userprofile
+                initial_data = {
+                    'full_name': profile.profile_full_name,
+                    'email': profile.profile_email,
+                    'phone_number': profile.profile_phone_number,
+                    'address1': profile.profile_address1,
+                    'address2': profile.profile_address2,
+                    'city': profile.profile_city,
+                    'postcode': profile.profile_postcode,
+                    'country': profile.profile_country,
+                }
+                order_form = OrderForm(initial=initial_data)
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
 
     context = {
         'order_form': order_form,
@@ -146,15 +155,24 @@ def checkout_success(request, order_id):
         profile = request.user.userprofile
         # Save the user's info
         if 'save_info' in request.session:
-            profile.profile_full_name = order.full_name
-            profile.profile_email = order.email
-            profile.profile_phone_number = order.phone_number
-            profile.profile_address1 = order.billing_address1
-            profile.profile_address2 = order.billing_address2
-            profile.profile_city = order.billing_city
-            profile.profile_postcode = order.billing_postcode
-            profile.profile_country = order.billing_country
-            profile.profile_save()
+            profile_data = {
+                'profile_full_name': order.full_name,
+                'profile_email': order.email,
+                'profile_phone_number': order.phone_number,
+                'profile_address1': order.billing_address1,
+                'profile_address2': order.billing_address2,
+                'profile_city': order.billing_city,
+                'profile_postcode': order.billing_postcode,
+                'profile_country': order.billing_country,
+            }
+
+            user_profile_form = UserProfileForm(
+                data=profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
+            else:
+                messages.error(request, 'There was an error with your form. \
+                    Please double check your information.')
 
     if 'bookcart' in request.session:
         del request.session['bookcart']
