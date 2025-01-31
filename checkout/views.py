@@ -8,6 +8,7 @@ from .models import OrderItem, Order
 from .forms import OrderForm
 from works.context_processors import bookcart_contents
 import stripe
+from .email_confirmation import send_confirmation_email
 
 
 def checkout(request):
@@ -48,7 +49,8 @@ def checkout(request):
                         OrderItem.objects.create(
                             order=order,
                             product=product,
-                            quantity=quantity
+                            quantity=quantity,
+                            price=product.price
                         )
                     except Product.DoesNotExist:
                         messages.error(request, "Product not found.")
@@ -73,13 +75,28 @@ def checkout(request):
                         if 'save-info' in request.POST:
                             request.session['save_info'] = True
 
+                        # Send confirmation email
+                        try:
+                            send_confirmation_email(order)
+                        except Exception as e:
+                            messages.error(
+                                request, f'Confirmation email not sent: {e}'
+                            )
+
                         return redirect(reverse(
                             'checkout_success', args=[order.id]))
                     except UserProfile.DoesNotExist:
                         messages.error(request, 'Profile not found.')
                         return redirect(reverse('view_bookcart'))
 
-                # For non-authenticated users
+                # For non-authenticated users, send email nad redirect
+                try:
+                    send_confirmation_email(order)
+                except Exception as e:
+                    messages.error(
+                        request, f'Confirmation email not sent: {e}'
+                    )
+
                 return redirect(reverse('checkout_success', args=[order.id]))
 
             except Exception as e:
@@ -118,11 +135,11 @@ def checkout(request):
                     'full_name': profile.profile_full_name,
                     'email': profile.profile_email,
                     'phone_number': profile.profile_phone_number,
-                    'address1': profile.profile_address1,
-                    'address2': profile.profile_address2,
-                    'city': profile.profile_city,
-                    'postcode': profile.profile_postcode,
-                    'country': profile.profile_country,
+                    'billing_address1': profile.profile_address1,
+                    'billing_address2': profile.profile_address2,
+                    'billing_city': profile.profile_city,
+                    'billing_postcode': profile.profile_postcode,
+                    'billing_country': profile.profile_country,
                 }
                 order_form = OrderForm(initial=initial_data)
             except UserProfile.DoesNotExist:

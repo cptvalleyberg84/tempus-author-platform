@@ -30,6 +30,17 @@ class Order(models.Model):
     )
     order_date = models.DateTimeField(auto_now_add=True)
 
+    email = models.EmailField(max_length=254)
+    payment_status = models.CharField(
+        max_length=50,
+        choices=[
+            ('pending', 'Pending'),
+            ('paid', 'Paid'),
+            ('failed', 'Failed'),
+        ],
+        default='pending'
+    )
+
     postcode_validator = RegexValidator(
         regex=r'^[A-Za-z0-9]{4,6}$',
         message=(
@@ -75,7 +86,6 @@ class OrderItem(models.Model):
     order = models.ForeignKey(
         'Order',
         on_delete=models.CASCADE,
-        related_name='items'
     )
     product = models.ForeignKey(
         'works.Product',

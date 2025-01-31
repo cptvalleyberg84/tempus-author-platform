@@ -57,7 +57,7 @@
                                 <td>{{ order.order_date }}</td>
                                 <td>
                                     <ul class="list-unstyled">
-                                        {% for item in order.items.all %}
+                                        {% for item in order.orderitem_set.all %}
                                         <li class="small">{{ item.product.name }} x {{ item.quantity }}</li>
                                         {% endfor %}
                                     </ul>

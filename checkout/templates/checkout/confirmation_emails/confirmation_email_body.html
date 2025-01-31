@@ -1,0 +1,22 @@
+Hello {{ order.full_name }}!
+
+This is a confirmation of your order at Tempus Author Platform. Your order information is below:
+
+    Order Number: {{ order.id }}
+    Order Date: {{ order.order_date }}
+
+Your order includes:
+    {% for item in order.orderitem_set.all %}
+        {{ item.quantity }}x {{ item.product.name }} x ${{ item.product.price|floatformat:2 }} each
+    {% endfor %}
+    
+Order Total: ${{ order.total_amount|floatformat:2 }}
+
+Your order will be shipped to {{ order.email }}.
+
+If you have any questions, feel free to contact us at {{ contact_email }}.
+
+Thank you for your order!
+
+Sincerely,
+Tempus Author Platform
