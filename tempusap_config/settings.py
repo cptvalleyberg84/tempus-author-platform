@@ -51,10 +51,12 @@ INSTALLED_APPS = [
     'works',
     'checkout',
     'profiles',
+    'about',
 
     # Other apps
     'crispy_forms',
     'crispy_bootstrap5',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -206,6 +208,8 @@ MESSAGE_TAGS = {
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+
+# Email settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.dreamhost.com'

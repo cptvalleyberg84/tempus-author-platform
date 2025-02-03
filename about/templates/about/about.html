@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Author Introduction Section -->
+    <section class="mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <img src="{% static 'about/img/banner1.png' %}" alt="Website Logo Photo" class="img-fluid rounded-circle shadow">
+            </div>
+            <div class="col-md-8">
+                <h1 class="display-4 mb-3">Welcome to The Tempus Author Platform</h1>
+                <p class="lead">I'm an author passionate about writing and storytelling.</p>
+                <p>I've dedicated decades exploring speculative fiction and the struggle. My greatest work (so far) does not really fit into any specific fictionous genre and because of this I have created The Tempus Author Platform. A place where I can find a mutual connection between the reality and topics of interest.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section class="my-5">
+        <h2 class="mb-4">My Works</h2>
+        <div class="row">
+            <!-- Digital Books -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5">Digital Books</h3>
+                        <p>Description of digital books and publications...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Audiobooks -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5">Audiobooks</h3>
+                        <p>Information about audiobook productions...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blog -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5">Blog & Articles</h3>
+                        <p>Overview of blog topics and articles...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="my-5">
+        <h2 class="mb-4">Community & Discussions</h2>
+        <p>Information about community engagement, blog topics, and discussions...</p>
+    </section>
+
+    <!-- Collaboration Form Section -->
+    <section class="my-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Let's Collaborate</h2>
+                <p class="card-text">Interested in working together? Fill out the form below:</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {% include 'about/collaboration_form.html' %}
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
