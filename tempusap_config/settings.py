@@ -58,8 +58,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
-    'ckeditor',
-    'ckeditor_uploader',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -223,16 +222,22 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = '"Tempus Author Platform" <tempus@valleyberg.com>'
 CONTACT_DISPLAY_EMAIL = 'tempus@valleyberg.com'
 
-# CKEditor settings
-CKEDITOR_UPLOAD_PATH = 'blog/content/'
-CKEDITOR_IMAGE_BACKEND = 'pillow'
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Full',
-        'height': 300,
+# Summernote settings
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
         'width': '100%',
-        'removePlugins': 'stylesheetparser',
-        'extraPlugins': 'codesnippet,prism,uploadimage',
-        'codeSnippet_theme': 'monokai_sublime',
+        'height': '480',
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
     },
+    'attachment_filesize_limit': 5 * 1024 * 1024,
 }

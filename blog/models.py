@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from ckeditor_uploader.fields import RichTextUploadingField
 
 
 def validate_not_empty(value):
@@ -38,7 +37,7 @@ class Post(models.Model):
         blank=True,
         null=True
     )
-    post_content = RichTextUploadingField(
+    post_content = models.TextField(
         help_text="Main content of the post"
     )
     post_excerpt = models.TextField(

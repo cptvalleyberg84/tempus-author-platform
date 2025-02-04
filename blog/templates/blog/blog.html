@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1 class="display-4">Blog</h1>
+        <p class="lead">Latest insights, updates, and stories</p>
+    </header>
+
+    {% if posts %}
+        <div class="row g-4">
+            {% for post in posts %}
+                <div class="col-md-6 col-lg-4">
+                    <article class="card blog-card h-100">
+                        <div class="blog-image-container">
+                            {% if post.post_featured_image %}
+                                <img src="{{ post.post_featured_image.url }}" 
+                                     alt="{{ post.post_title }}" 
+                                     class="card-img-top img-fluid">
+                            {% else %}
+                                <img src="{% static 'blog/images/default-blog-image.png' %}" 
+                                     alt="Default blog image" 
+                                     class="card-img-top img-fluid">
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-body">
+                            <h2 class="card-title h5 mb-3">
+                                <a href="{% url 'blog:post_detail' post.post_slug %}" 
+                                   class="text-decoration-none text-dark">
+                                    {{ post.post_title }}
+                                </a>
+                            </h2>
+                            
+                            <div class="blog-meta mb-2">
+                                <span class="me-3">
+                                    <i class="fas fa-user-edit me-1"></i>
+                                    {{ post.post_author.get_full_name|default:post.post_author.username }}
+                                </span>
+                                <span>
+                                    <i class="far fa-calendar-alt me-1"></i>
+                                    {{ post.post_created_on|date:"F j, Y" }}
+                                </span>
+                            </div>
+                            
+                            <p class="card-text blog-excerpt">
+                                {{ post.post_excerpt|safe }}
+                            </p>
+                            
+                            <a href="{% url 'blog:post_detail' post.post_slug %}" 
+                               class="btn btn-outline-primary btn-sm">
+                                Read More
+                                <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+            <nav aria-label="Blog pagination" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                <i class="fas fa-chevron-left"></i>
+                                Previous
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                Next
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+    {% else %}
+        <div class="text-center py-5">
+            <h2 class="h4">No blog posts available yet.</h2>
+            <p>Check back soon for new content!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'blog/js/blog.js' %}"></script>
+{% endblock %}

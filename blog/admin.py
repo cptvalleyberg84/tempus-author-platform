@@ -1,10 +1,12 @@
 from django.contrib import admin
 from .models import Post
+from django_summernote.admin import SummernoteModelAdmin
 from django.utils.html import format_html
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin):
+    summernote_fields = ('post_content',)
     list_display = (
         'post_title',
         'post_status',
