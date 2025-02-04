@@ -52,11 +52,14 @@ INSTALLED_APPS = [
     'checkout',
     'profiles',
     'about',
+    'blog',
 
     # Other apps
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -219,3 +222,17 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = '"Tempus Author Platform" <tempus@valleyberg.com>'
 CONTACT_DISPLAY_EMAIL = 'tempus@valleyberg.com'
+
+# CKEditor settings
+CKEDITOR_UPLOAD_PATH = 'blog/content/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'extraPlugins': 'codesnippet,prism,uploadimage',
+        'codeSnippet_theme': 'monokai_sublime',
+    },
+}
