@@ -1,7 +1,10 @@
+
+from django.http import HttpResponseForbidden
 from django.views.generic import ListView, DetailView
-from .models import Post
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Post, Comment
 from .forms import CommentForm
 
 
@@ -55,3 +58,46 @@ class PostDetailView(DetailView):
         context = self.get_context_data(object=self.object)
         context['comment_form'] = form
         return self.render_to_response(context)
+
+
+@login_required
+def comment_edit(request, post_slug, comment_id):
+    comment = get_object_or_404(
+        Comment, id=comment_id, post__post_slug=post_slug)
+
+    if request.user == comment.author:
+        return HttpResponseForbidden(
+            "You don't have permission to edit this comment."
+        )
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment updated successfully.')
+            return redirect('post_detail', slug=post_slug)
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(request, 'blog/comment_edit.html', {
+        'form': form,
+        'comment': comment,
+        'post': comment.post
+    })
+
+
+@login_required
+def comment_delete(request, post_slug, comment_id):
+    comment = get_object_or_404(
+        Comment, id=comment_id, post__post_slug=post_slug)
+
+    if not (request.user == comment.author or request.user.is_staff):
+        return HttpResponseForbidden(
+            "You don't have permission to delete this comment."
+        )
+
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request, 'Comment deleted successfully.')
+
+    return redirect('post_detail', slug=post_slug)
