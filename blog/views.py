@@ -65,7 +65,7 @@ def comment_edit(request, post_slug, comment_id):
     comment = get_object_or_404(
         Comment, id=comment_id, post__post_slug=post_slug)
 
-    if request.user == comment.author:
+    if not request.user == comment.author:
         return HttpResponseForbidden(
             "You don't have permission to edit this comment."
         )
