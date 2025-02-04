@@ -85,7 +85,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(
         default=True,
-        help_text="0: Hidden, 1: Visible"
+        help_text="Uncheck to hide the comment"
     )
 
     class Meta:
