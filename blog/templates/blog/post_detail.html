@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<article class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Post Header -->
+            <header class="mb-4">
+                <h1 class="display-4 mb-3">{{ post.post_title }}</h1>
+                <div class="meta mb-4">
+                    <span class="me-3">
+                        <i class="fas fa-user me-2"></i>{{ post.post_author }}
+                    </span>
+                    <span class="me-3">
+                        <i class="fas fa-calendar-alt me-2"></i>{{ post.post_created_on|date:"F j, Y" }}
+                    </span>
+                </div>
+            </header>
+
+            <!-- Featured Image -->
+            {% if post.post_featured_image %}
+            <div class="featured-image mb-4">
+                <img src="{{ post.post_featured_image.url }}" alt="{{ post.post_title }}" class="img-fluid rounded">
+            </div>
+            {% endif %}
+
+            <!-- Post Content -->
+            <div class="post-content">
+                {{ post.post_content|safe }}
+            </div>
+
+            <!-- Navigation -->
+            <div class="mt-5 pt-3 border-top">
+                <a href="{% url 'blog' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Blog
+                </a>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}

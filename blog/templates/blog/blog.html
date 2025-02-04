@@ -31,7 +31,7 @@
                         
                         <div class="card-body">
                             <h2 class="card-title h5 mb-3">
-                                <a href="{% url 'blog:post_detail' post.post_slug %}" 
+                                <a href="{% url 'post_detail' post.post_slug %}" 
                                    class="text-decoration-none text-dark">
                                     {{ post.post_title }}
                                 </a>
@@ -52,7 +52,7 @@
                                 {{ post.post_excerpt|safe }}
                             </p>
                             
-                            <a href="{% url 'blog:post_detail' post.post_slug %}" 
+                            <a href="{% url 'post_detail' post.post_slug %}" 
                                class="btn btn-outline-primary btn-sm">
                                 Read More
                                 <i class="fas fa-arrow-right ms-1"></i>

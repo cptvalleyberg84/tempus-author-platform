@@ -65,7 +65,7 @@
                         <a class="nav-link {% if request.path == '/works/' %}active{% endif %}" aria-current="page" href="{% url 'works' %}">Works</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Blog</a>
+                        <a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" aria-current="page" href="{% url 'blog' %}">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" aria-current="page" href="{% url 'about' %}">About</a>
@@ -161,9 +161,9 @@
                             aria-label="Go to home page">Home</a></li>
                         <li><a href="{% url 'works' %}" class="text-decoration-none text-muted" 
                             aria-label="View all works">Works</a></li>
-                        <li><a href="{% url 'about' %}" class="text-decoration-none text-muted" 
+                        <li><a href="{% url 'blog' %}" class="text-decoration-none text-muted" 
                             aria-label="Read our blog">Blog</a></li>
-                        <li><a href="" class="text-decoration-none text-muted" 
+                        <li><a href="{% url 'about' %}" class="text-decoration-none text-muted" 
                             aria-label="Learn about us">About</a></li>
                     </ul>
                 </div>

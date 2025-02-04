@@ -221,23 +221,9 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = '"Tempus Author Platform" <tempus@valleyberg.com>'
 CONTACT_DISPLAY_EMAIL = 'tempus@valleyberg.com'
+CONTACT_DISPLAY_NAME = 'Tempus Author Platform'
 
 # Summernote settings
 SUMMERNOTE_CONFIG = {
-    'iframe': True,
-    'summernote': {
-        'width': '100%',
-        'height': '480',
-        'toolbar': [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']],
-        ],
-    },
-    'attachment_filesize_limit': 5 * 1024 * 1024,
+    'attachment_filesize_limit': 5 * 1024 * 1024,  # 5MB limit
 }
