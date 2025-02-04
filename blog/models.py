@@ -65,3 +65,33 @@ class Post(models.Model):
             from django.utils.html import strip_tags
             self.post_excerpt = strip_tags(self.post_content)[:150] + '...'
         super().save(*args, **kwargs)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='blog_comments'
+    )
+    content = models.TextField(
+        validators=[validate_not_empty]
+    )
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(
+        default=True,
+        help_text="0: Hidden, 1: Visible"
+    )
+
+    class Meta:
+        ordering = ['created_on']
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+    def __str__(self):
+        return f'Comment by {self.author} on {self.post}'

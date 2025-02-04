@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 from django_summernote.admin import SummernoteModelAdmin
 from django.utils.html import format_html
 
@@ -34,3 +34,17 @@ class PostAdmin(SummernoteModelAdmin):
         if not change:
             obj.post_author = request.user
         super().save_model(request, obj, form, change)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('author', 'post', 'created_on', 'active')
+    list_filter = ('active', 'created_on')
+    search_fields = ('author__username', 'content')
+    actions = ['approve_comments', 'hide_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
+
+    def hide_comments(self, request, queryset):
+        queryset.update(active=False)
