@@ -51,7 +51,7 @@
                     </div>
                 {% else %}
                     <div class="alert alert-info">
-                        Please <a href="{% url 'login' %}">login</a> to leave a comment.
+                        Please <a href="{% url 'account_login' %}?next={{ request.path }}">login</a> to leave a comment.
                     </div>
                 {% endif %}
 
