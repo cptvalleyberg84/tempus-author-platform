@@ -1,0 +1,1 @@
+web: gunicorn tampusap_config.wsgi:application

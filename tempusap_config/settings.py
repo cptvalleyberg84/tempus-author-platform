@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import dj_database_url
 from django.contrib.messages import constants as messages
 from pathlib import Path
 if os.path.exists("env.py"):
@@ -23,14 +24,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6_-lf9g(&krgzr418l0c2e3%-dj#vzb7_3ve4xhh*&9t(0@'
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEVELOPMENT = os.environ.get('DEVELOPMENT', False)
+
+DEBUG = "DEVELOPMENT"
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '8000-cptvalleybe-tempusautho-9ix7ubfd2ya.ws.codeinstitute-ide.net'
+    '8000-cptvalleybe-tempusautho-9ix7ubfd2ya.ws.codeinstitute-ide.net',
+    '.herokuapp.com',
 ]
 
 
@@ -128,13 +132,22 @@ WSGI_APPLICATION = 'tempusap_config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEVELOPMENT:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com"
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
