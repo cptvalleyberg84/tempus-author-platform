@@ -1,0 +1,32 @@
+/* Latest Updates Section Cards */
+.update-card {
+    max-height: 420px;
+}
+
+.image-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.image-container img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    font-size: small;
+}
+
+.button-container {
+    margin-top: auto;
+}
+
+h3 {
+    color: green;
+}
