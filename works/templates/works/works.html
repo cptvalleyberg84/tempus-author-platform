@@ -41,11 +41,19 @@
                             <span class="badge bg-primary">{{ work.category.friendly_name }}</span>
                         </div>
 
-                        {% if work.rating %}
-                            <small class="text-muted">Rating: {{ work.rating }} / 5</small>
-                        {% else %}
-                            <small class="text-muted">No rating yet</small>
-                        {% endif %}
+                        <div class="rating mt-2">
+                            {% with average_rating=work.average_rating %}
+                                {% if average_rating %}
+                                    <small class="text-muted">
+                                        <i class="fas fa-star text-warning"></i>
+                                        {{ average_rating|floatformat:1 }} / 5
+                                        ({{ work.reviews.count }} reviews)
+                                    </small>
+                                {% else %}
+                                    <small class="text-muted">No ratings yet</small>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
                     </div>
                     
                     <div class="card-footer bg-white border-top-0">

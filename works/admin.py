@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import Category, Product, Review
+
 
 # Register your models here.
-
-
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         'friendly_name',
@@ -36,6 +35,18 @@ class ProductAdmin(admin.ModelAdmin):
         'description',
         'friendly_name',
     )
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('product', 'user', 'rating', 'created_date', 'approved')
+    list_filter = ('approved', 'created_date', 'rating')
+    search_fields = ('product__name', 'user__username', 'comment')
+    actions = ['approve_reviews']
+
+    def approve_reviews(self, request, queryset):
+        queryset.update(approved=True)
+    approve_reviews.short_description = "Approve selected reviews"
 
 
 admin.site.register(Category, CategoryAdmin)

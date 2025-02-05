@@ -39,17 +39,16 @@ def profile(request):
 
 def order_history(request, order_id):
     """ A view to show individual order history """
-    order = get_object_or_404(Order, order_number=order_id)
+    order = get_object_or_404(Order, id=order_id)
 
     messages.info(request, (
         f'This is a past confirmation for order number {order_id}. '
         'A confirmation email was sent on the order date.'
     ))
 
-    template = 'checkout/checkout_success.html'
     context = {
         'order': order,
         'from_profile': True,
     }
 
-    return render(request, template, context)
+    return render(request, 'checkout/checkout_success.html', context)

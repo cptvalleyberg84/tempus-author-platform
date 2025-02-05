@@ -26,6 +26,7 @@ class OrderAdmin(admin.ModelAdmin):
                 'user',
                 'order_date',
                 'total_amount'
+                'payment_status'
             )
         }),
         ('Customer Information', {
@@ -51,8 +52,11 @@ class OrderAdmin(admin.ModelAdmin):
         'full_name',
         'email',
         'total_amount',
-        'order_date'
+        'order_date',
+        'payment_status'
     )
+
+    list_filter = ('payment_status',)
 
     search_fields = (
         'full_name',

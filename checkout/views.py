@@ -37,6 +37,7 @@ def checkout(request):
                 order = order_form.save(commit=False)
                 if request.user.is_authenticated:
                     order.user = request.user
+                order.payment_status = 'paid'
                 order.save()
 
                 # Create order items
@@ -163,6 +164,11 @@ def checkout_success(request, order_id):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, id=order_id)
+
+    if order.payment_status == 'pending':
+        order.payment_status = 'paid'
+        order.save()
+
     total = sum(
         item.product.price * item.quantity
         for item in order.orderitem_set.all()

@@ -16,4 +16,5 @@ urlpatterns = [
         views.remove_from_bookcart,
         name='remove_from_bookcart'
     ),
+    path('add_review/<int:work_id>/', views.add_review, name='add_review'),
 ]

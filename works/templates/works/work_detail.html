@@ -36,7 +36,7 @@
                             <span class="h5">{{ work.rating }} / 5</span>
                         </p>
                     {% else %}
-                        <p class="text-muted mb-0">No rating yet</p>
+                        <p class="mb-0">No rating yet</p>
                     {% endif %}
                 </div>
             </div>
@@ -126,7 +126,51 @@
                             <p>Sample excerpt from the work...</p>
                         </div>
                         <div class="tab-pane fade" id="reviews">
-                            <p>No reviews yet.</p>
+                            {% if user.is_authenticated %}
+                                {% if user_has_reviewed and not user_has_approved_review %}
+                                    <div class="alert alert-info">
+                                        Your review has been submitted and is pending approval.
+                                    </div>
+                                {% elif not user_has_reviewed %}
+                                    {% if user_has_purchased %}
+                                        <form method="POST" action="{% url 'add_review' work.id %}">
+                                            {% csrf_token %}
+                                            {{ review_form }}
+                                            <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
+                                        </form>
+                                    {% else %}
+                                        <div class="alert alert-info">
+                                            Only verified purchasers can review this book. Purchase this book to share your review!
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                            <div class="alert alert-info">
+                                Please <a href="{% url 'account_login' %}">login</a> to leave a review.
+                            </div>
+                            {% endif %}
+                            <div class="reviews-list mt-4">
+                                {% for review in reviews %}
+                                    <div class="review-card mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <strong>{{ review.user.username }}</strong>
+                                            <div class="rating">
+                                                {% for i in "12345" %}
+                                                    {% if forloop.counter <= review.rating %}
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    {% else %}
+                                                        <i class="far fa-star"></i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <p class="mb-1">{{ review.comment }}</p>
+                                        <small class="">{{ review.created_date|date:"F j, Y" }}</small>
+                                    </div>
+                                {% empty %}
+                                    <p>No approved reviews yet.</p>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
