@@ -30,3 +30,9 @@
 h3 {
     color: green;
 }
+
+.highlight {
+    background-color: #ffeb3b;
+    padding: 0 2px;
+    border-radius: 2px;
+}

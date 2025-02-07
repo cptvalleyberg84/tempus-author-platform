@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -32,8 +37,8 @@
                         {% endif %}
                         
                         <div class="card-body">
-                            <h5 class="card-title">{{ work.name }}</h5>
-                            <p class="card-text">{{ work.description|truncatewords:20 }}</p>
+                            <h5 class="card-title">{{ work.name|highlight_yellow:search_term|safe }}</h5>
+                            <p class="card-text">{{ work.description|smart_truncate:search_term|truncatewords:20|highlight_yellow:search_term|safe }}</p>
                             
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="h5 mb-0">${{ work.price }}</span>
@@ -59,8 +64,8 @@
                             <img src="{{ post.post_featured_image.url }}" class="card-img-top" alt="{{ post.post_title }}">
                         {% endif %}
                         <div class="card-body">
-                            <h5 class="card-title">{{ post.post_title }}</h5>
-                            <p class="card-text">{{ post.post_content|safe|truncatewords:30 }}</p>
+                            <h5 class="card-title">{{ post.post_title|highlight_yellow:search_term|safe }}</h5>
+                            <p class="card-text">{{ post.post_content|smart_truncate:search_term|safe|truncatewords:30|highlight_yellow:search_term }}</p>
                             <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-primary">Read More</a>
                         </div>
                     </div>
