@@ -1,0 +1,68 @@
+{% if carousel_items %}
+<div class="container-fluid p-0">
+    <div id="main-carousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators -->
+        {% if carousel_items.count > 1 %}
+        <div class="carousel-indicators">
+            {% for item in carousel_items %}
+            <button type="button" 
+                    data-bs-target="#main-carousel" 
+                    data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active"{% endif %}
+                    aria-label="Slide {{ forloop.counter }}">
+            </button>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            {% for item in carousel_items %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %} carousel-style-{{ item.style }}" 
+                 data-bs-interval="{{ item.display_time }}">
+                
+                {% if item.get_link %}
+                <a href="{{ item.get_link }}" {% if item.open_in_new_tab %}target="_blank"{% endif %}>
+                {% endif %}
+                
+                <div class="carousel-content">
+                    <img src="{{ item.image.url }}" 
+                         alt="{{ item.alt_text|default:item.title }}" 
+                         class="carousel-main-image">
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <div class="caption-backdrop">
+                            <h2 class="carousel-title">{{ item.title }}</h2>
+                            {% if item.subtitle %}<h3 class="carousel-subtitle">{{ item.subtitle }}</h3>{% endif %}
+                            {% if item.description %}<p class="carousel-description">{{ item.description }}</p>{% endif %}
+                            
+                            {% if item.cta_text %}
+                            <button class="btn btn-{{ item.cta_style }}">
+                                {{ item.cta_text }}
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if item.get_link %}
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        {% if carousel_items.count > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#main-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#main-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

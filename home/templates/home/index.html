@@ -6,119 +6,122 @@
 {% endblock %}
 
 {% block content %}
-  <div class="block container">
-    <div class="row">
-      <div class="col-12">
-        <h1>Home</h1>
-        <p>Welcome to the Tempus Author Platform.</p>
-      </div>
+    <div class="block container">
+        <div class="row">
+        <div class="col-12">
+            <h1>Home</h1>
+            <p>Welcome to the Tempus Author Platform.</p>
+        </div>
 
-      <!-- Latest Updates Section -->
-      <section class="my-5">
-          <h2 class="mb-4">Latest Updates</h2>
-          <div class="row g-4">
-              <!-- Latest Blog Post -->
-              {% if latest_post %}
-              <div class="col-md-4">
-                  <article class="card h-100 update-card">
-                      <div class="image-container">
-                          {% if latest_post.post_featured_image %}
-                              <img src="{{ latest_post.post_featured_image.url }}" 
-                                   alt="{{ latest_post.post_title }}" 
-                                   class="card-img-top img-fluid">
-                          {% else %}
-                              <img src="{% static 'blog/images/default-blog-image.png' %}" 
-                                   alt="Default blog image" 
-                                   class="card-img-top img-fluid">
-                          {% endif %}
-                      </div>
-                      <div class="card-body">
-                          <h2 class="card-title h5 mb-3">
-                              <a href="{% url 'post_detail' latest_post.post_slug %}" 
-                                 class="text-decoration-none text-dark">
-                                  {{ latest_post.post_title }}
-                              </a>
-                          </h2>
-                          <div class="blog-meta mb-2 small">
-                              <span class="me-3">
-                                  <i class="fas fa-user-edit me-1"></i>
-                                  {{ latest_post.post_author.get_full_name|default:latest_post.post_author.username }}
-                              </span>
-                          </div>
-                          <p class="card-text">
-                              {{ latest_post.post_excerpt|truncatewords:25|safe }}
-                          </p>
-                          <div class="button-container">
-                              <a href="{% url 'post_detail' latest_post.post_slug %}" 
-                                 class="btn btn-outline-primary btn-sm">
-                                  Read More
-                                  <i class="fas fa-arrow-right ms-1"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </article>
-              </div>
-              {% endif %}
-      
-              <!-- Latest Product -->
-              {% if latest_product %}
-              <div class="col-md-4">
-                  <div class="card h-100 update-card">
-                      <div class="image-container">
-                          {% if latest_product.image %}
-                              <img src="{{ latest_product.image.url }}" 
-                                   class="card-img-top img-fluid" 
-                                   alt="{{ latest_product.name }}">
-                          {% elif latest_product.image_url %}
-                              <img src="{{ latest_product.image_url }}" 
-                                   class="card-img-top img-fluid" 
-                                   alt="{{ latest_product.name }}">
-                          {% else %}
-                              <img src="{% static 'images/noimage.png' %}" 
-                                   class="card-img-top img-fluid" 
-                                   alt="{{ latest_product.name }}">
-                          {% endif %}
-                      </div>
-                      
-                      <div class="card-body">
-                          <h5 class="card-title">{{ latest_product.name }}</h5>
-                          <p class="card-text">{{ latest_product.description|truncatewords:25 }}</p>
-                          
-                          <div class="d-flex justify-content-between align-items-center mb-2">
-                              <span class="h5 mb-0">${{ latest_product.price }}</span>
-                              {% if latest_product.category %}
-                                  <span class="badge bg-primary">{{ latest_product.category.friendly_name }}</span>
-                              {% endif %}
-                          </div>
-      
-                          <div class="button-container">
-                              <a href="{% url 'work_detail' latest_product.id %}" class="btn btn-outline-primary btn-sm">
-                                  View Product
-                                  <i class="fas fa-arrow-right ms-1"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              {% endif %}
-      
-              <!-- About/Contact Card -->
-              <div class="col-md-4">
-                  <div class="card h-100 update-card">
-                      <div class="card-body">
-                          <h3 class="h5">Stay Connected</h3>
-                          <p class="card-text">Follow my latest updates and get in touch!</p>
-                          <div class="button-container">
-                              <a href="{% url 'about' %}" class="btn btn-outline-primary btn-sm">
-                                  About Me
-                                  <i class="fas fa-arrow-right ms-1"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>      
+        <!-- Carousel Items Section -->
+        {% include 'home/includes/carousel.html' %}
+        
+        <!-- Latest Updates Section -->
+        <section class="my-5">
+            <h2 class="mb-4">Latest Updates</h2>
+            <div class="row g-4">
+                <!-- Latest Blog Post -->
+                {% if latest_post %}
+                <div class="col-md-4">
+                    <article class="card h-100 update-card">
+                        <div class="image-container">
+                            {% if latest_post.post_featured_image %}
+                                <img src="{{ latest_post.post_featured_image.url }}" 
+                                    alt="{{ latest_post.post_title }}" 
+                                    class="card-img-top img-fluid">
+                            {% else %}
+                                <img src="{% static 'blog/images/default-blog-image.png' %}" 
+                                    alt="Default blog image" 
+                                    class="card-img-top img-fluid">
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title h5 mb-3">
+                                <a href="{% url 'post_detail' latest_post.post_slug %}" 
+                                    class="text-decoration-none text-dark">
+                                    {{ latest_post.post_title }}
+                                </a>
+                            </h2>
+                            <div class="blog-meta mb-2 small">
+                                <span class="me-3">
+                                    <i class="fas fa-user-edit me-1"></i>
+                                    {{ latest_post.post_author.get_full_name|default:latest_post.post_author.username }}
+                                </span>
+                            </div>
+                            <p class="card-text">
+                                {{ latest_post.post_excerpt|truncatewords:25|safe }}
+                            </p>
+                            <div class="button-container">
+                                <a href="{% url 'post_detail' latest_post.post_slug %}" 
+                                    class="btn btn-outline-primary btn-sm">
+                                    Read More
+                                    <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endif %}
+        
+                <!-- Latest Product -->
+                {% if latest_product %}
+                <div class="col-md-4">
+                    <div class="card h-100 update-card">
+                        <div class="image-container">
+                            {% if latest_product.image %}
+                                <img src="{{ latest_product.image.url }}" 
+                                    class="card-img-top img-fluid" 
+                                    alt="{{ latest_product.name }}">
+                            {% elif latest_product.image_url %}
+                                <img src="{{ latest_product.image_url }}" 
+                                    class="card-img-top img-fluid" 
+                                    alt="{{ latest_product.name }}">
+                            {% else %}
+                                <img src="{% static 'images/noimage.png' %}" 
+                                    class="card-img-top img-fluid" 
+                                    alt="{{ latest_product.name }}">
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ latest_product.name }}</h5>
+                            <p class="card-text">{{ latest_product.description|truncatewords:25 }}</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="h5 mb-0">${{ latest_product.price }}</span>
+                                {% if latest_product.category %}
+                                    <span class="badge bg-primary">{{ latest_product.category.friendly_name }}</span>
+                                {% endif %}
+                            </div>
+        
+                            <div class="button-container">
+                                <a href="{% url 'work_detail' latest_product.id %}" class="btn btn-outline-primary btn-sm">
+                                    View Product
+                                    <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+        
+                <!-- About/Contact Card -->
+                <div class="col-md-4">
+                    <div class="card h-100 update-card">
+                        <div class="card-body">
+                            <h3 class="h5">Stay Connected</h3>
+                            <p class="card-text">Follow my latest updates and get in touch!</p>
+                            <div class="button-container">
+                                <a href="{% url 'about' %}" class="btn btn-outline-primary btn-sm">
+                                    About Me
+                                    <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>      
+        </div>
     </div>
-  </div>
 {% endblock %}
