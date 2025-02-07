@@ -1,0 +1,125 @@
+/* Base carousel styles */
+.carousel {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-content {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-main-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Caption base styles */
+.carousel-caption {
+    padding: 20px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Product style */
+.carousel-style-product .carousel-caption {
+    background: rgba(0, 0, 0, 0.7);
+    border-left: 4px solid #ff9900;
+    left: 20px;
+    right: auto;
+    bottom: 40px;
+    max-width: 450px;
+}
+
+/* Blog style */
+.carousel-style-blog .carousel-caption {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-radius: 0;
+    text-align: left;
+    right: 20px;
+    left: auto;
+    max-width: 400px;
+}
+
+.carousel-style-blog .carousel-title {
+    color: #222;
+}
+
+/* News style */
+.carousel-style-news .carousel-caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    border-radius: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    padding: 40px 20px 20px;
+}
+
+/* External style */
+.carousel-style-external .carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Responsive text sizes */
+.carousel-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-description {
+    font-size: 1.2rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .carousel-title {
+        font-size: 1.8rem;
+    }
+
+    .carousel-subtitle {
+        font-size: 1.4rem;
+    }
+
+    .carousel-description {
+        font-size: 1rem;
+    }
+
+    .carousel-caption.d-none.d-md-block {
+        display: block !important;
+        padding: 10px;
+    }
+
+    /* Adjust style-specific layouts for mobile */
+    .carousel-style-product .carousel-caption,
+    .carousel-style-blog .carousel-caption {
+        left: 10px;
+        right: 10px;
+        max-width: calc(100% - 20px);
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+    .carousel-title {
+        font-size: 1.4rem;
+    }
+
+    .carousel-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .carousel-description {
+        font-size: 0.9rem;
+    }
+}
