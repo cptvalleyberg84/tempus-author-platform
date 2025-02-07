@@ -16,6 +16,7 @@ def search(request):
     """A view that displays the search results page"""
     query = request.GET.get('q', '')
     works = []
+    blog_posts = []
 
     if 'q' in request.GET:
         if not query:
@@ -26,9 +27,19 @@ def search(request):
                 Q(description__icontains=query)
             ).distinct()
 
+            blog_posts = Post.objects.filter(
+                Q(post_title__icontains=query) |
+                Q(post_content__icontains=query),
+                post_status=1
+            ).distinct()
+
+    total_results = len(works) + len(blog_posts)
+
     context = {
         'works': works,
+        'blog_posts': blog_posts,
         'search_term': query,
+        'total_results': total_results,
     }
 
     return render(request, 'home/search_results.html', context)

@@ -7,8 +7,9 @@
         <div class="col-12">
             {% if search_term %}
                 <h2 class="text-center mb-4">Search results for "{{ search_term }}"</h2>
-                {% if works %}
-                    <p class="text-center">Found {{ works|length }} result{{ works|length|pluralize }}</p>
+                {% if works or blog_posts %}
+                     <p class="text-center">Found {{ total_results }} result{{ total_results|pluralize }} <br>
+                        ({{ works|length }} in works, {{ blog_posts|length }} in blog posts)</p>
                 {% else %}
                     <p class="text-center">No results found. Try a different search term.</p>
                 {% endif %}
@@ -19,6 +20,7 @@
     </div>
 
     {% if works %}
+    <h3 class="mt-4">Works</h3>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for work in works %}
                 <div class="col">
@@ -47,5 +49,24 @@
             {% endfor %}
         </div>
     {% endif %}
+    {% if blog_posts %}
+        <h3 class="mt-4">Blog Posts</h3>
+        <div class="row">
+            {% for post in blog_posts %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        {% if post.post_featured_image %}
+                            <img src="{{ post.post_featured_image.url }}" class="card-img-top" alt="{{ post.post_title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.post_title }}</h5>
+                            <p class="card-text">{{ post.post_content|safe|truncatewords:30 }}</p>
+                            <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}    
 </div>
 {% endblock %}
