@@ -53,3 +53,8 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 4px 15px rgba(136, 34, 34, 0.4);
 }
+
+/* signup-form */
+input, textarea {
+    color: black !important;
+}

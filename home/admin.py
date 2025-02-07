@@ -1,19 +1,19 @@
 from django.contrib import admin
 from .models import CarouselItem
+from .forms import CarouselItemAdminForm
 
 
 @admin.register(CarouselItem)
 class CarouselItemAdmin(admin.ModelAdmin):
+    form = CarouselItemAdminForm
     list_display = (
         'title',
         'style',
         'order',
         'is_active',
     )
-
     list_filter = ('is_active', 'style')
     search_fields = ('title',)
-
     fieldsets = (
         ('Basic Information', {
             'fields': (
@@ -25,7 +25,7 @@ class CarouselItemAdmin(admin.ModelAdmin):
             )
         }),
         ('Link Settings', {
-            'description': 'Choose one of the following link types (optional)',
+            'description': 'Choose one of the following link types',
             'fields': (
                 'product',
                 'blog_post',
@@ -42,6 +42,5 @@ class CarouselItemAdmin(admin.ModelAdmin):
             )
         }),
     )
-
     ordering = ('order',)
     list_editable = ('order', 'is_active')

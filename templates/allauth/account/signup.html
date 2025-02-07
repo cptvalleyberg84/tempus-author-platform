@@ -7,6 +7,37 @@
     {% element h1 %}
         {% trans "Sign Up" %}
     {% endelement %}
+        <!-- Community Rules Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Community Guidelines</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Before joining our community, please read and agree to our guidelines:</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Be respectful and courteous to other members
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Share authentic and original content
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Protect your account information
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Report any suspicious activity
+                    </li>
+                </ul>
+                <p class="mt-3 text-muted small">
+                    By creating an account, you agree to follow these guidelines and our 
+                    <a href="#" class="text-decoration-none">Terms of Service</a>.
+                </p>
+            </div>
+        </div>
     {% setvar link %}
         <a href="{{ login_url }}">
         {% endsetvar %}
@@ -16,6 +47,7 @@
     {% element p %}
         {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
     {% endelement %}
+
     {% if not SOCIALACCOUNT_ONLY %}
         {% url 'account_signup' as action_url %}
         {% element form form=form method="post" action=action_url tags="entrance,signup" %}
@@ -32,6 +64,7 @@
             {% endslot %}
         {% endelement %}
     {% endif %}
+    
     {% if PASSKEY_SIGNUP_ENABLED %}
         {% element hr %}
         {% endelement %}
