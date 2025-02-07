@@ -211,7 +211,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # AWS S3 settings
 
 if 'DEVELOPMENT' in os.environ:
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    STATICFILES_STORAGE = (
+        'django.contrib.staticfiles.storage.StaticFilesStorage'
+    )
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 elif 'USE_AWS' in os.environ:
     AWS_S3_OBJECT_PARAMETERS = {
@@ -292,4 +294,3 @@ else:
 SUMMERNOTE_CONFIG = {
     'attachment_filesize_limit': 5 * 1024 * 1024,  # 5MB limit
 }
-
