@@ -13,3 +13,4 @@ django_step_by_step.md
 db.sqlite3
 *.pyc
 __pycache__
+staticfiles/

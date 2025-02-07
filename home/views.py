@@ -33,9 +33,7 @@ def search(request):
 
 
 def home(request):
-    latest_post = Post.objects.filter(post_status=1) \
-                              .order_by('-post_created_on') \
-                              .first()
+    latest_post = Post.objects.filter(post_status=1).order_by('-post_created_on').first()
     latest_product = Product.objects.order_by('-created_date').first()
 
     context = {

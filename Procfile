@@ -1,1 +1,1 @@
-web: gunicorn tampusap_config.wsgi:application
+web: gunicorn tempusap_config.wsgi:application
