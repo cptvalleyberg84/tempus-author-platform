@@ -1,0 +1,40 @@
+.comment-card {
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.comment-card:hover {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.comment-content {
+    color: #333;
+}
+
+.comment-meta {
+    font-size: 0.85rem;
+}
+
+.comments-section {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.profile-image-container {
+    transition: all 0.3s ease;
+}
+
+.profile-image-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}

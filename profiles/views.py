@@ -1,25 +1,33 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
-from .forms import UserProfileForm
 from django.contrib import messages
+from .models import UserProfile
+from .forms import UserProfileForm, PublicProfileForm
 from checkout.models import Order
+from blog.models import Comment
 
 
 @login_required
 def profile(request):
     """ Display the user's profile. """
-
     profile = get_object_or_404(UserProfile, user=request.user)
-    form = UserProfileForm(instance=profile)
-    orders = Order.objects.filter(user_profile=profile).order_by('-order_date')
+
+    latest_comments = Comment.objects.filter(author=request.user)\
+        .select_related('post')\
+        .order_by('-created_on')[:3]
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        form = UserProfileForm(
+            request.POST, request.FILES, instance=profile
+        )
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
-            return render(request, 'profiles/profile.html')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Update failed. Please ensure the form is valid.')
+    else:
+        form = UserProfileForm(instance=profile)
 
     try:
         orders = profile.orders.all()
@@ -31,7 +39,29 @@ def profile(request):
         'profile': profile,
         'form': form,
         'orders': orders,
+        'latest_comments': latest_comments,
         'on_profile_page': True
+    }
+
+    return render(request, template, context)
+
+
+def public_profile(request, user_id):
+    """ Display public profile view """
+    profile = get_object_or_404(UserProfile, user__id=user_id)
+
+    if request.user.is_authenticated and request.user.id == user_id:
+        return redirect('profile')
+
+    form = PublicProfileForm(instance=profile)
+
+    latest_comments = Comment.objects.filter(author=profile.user).select_related('post').order_by('-created_on')[:3]
+
+    template = 'profiles/public_profile.html'
+    context = {
+        'profile': profile,
+        'form': form,
+        'latest_comments': latest_comments,
     }
 
     return render(request, template, context)

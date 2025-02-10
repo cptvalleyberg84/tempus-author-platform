@@ -15,13 +15,21 @@
             <h2 class="logo-font mb-4 text-center">My Profile</h2>
             <hr>
         </div>
-    </div>
-    
+    </div>    
     <div class="row">
-        <div class="col-12 col-lg-6">
-            <p>Default Billing Information</p>
+        <div class="col-12 col-lg-4">
+            <div class="profile-image-container text-center mb-4">
+                {% if user.profile.profile_image %}
+                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle profile-image">
+                {% else %}
+                    <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle profile-image">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <p>User and Default Billing Information</p>
             <div class="profile-form-container">
-                <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                <form action="{% url 'profile' %}" method="POST" id="profile-update-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <button class="btn btn-primary rounded-0">
@@ -29,10 +37,8 @@
                     </button>
                 </form>
             </div>
-        </div>
-        
-        <div class="col-12 col-lg-6">
-           
+        </div>     
+        <div class="col-12 col-lg-4">
             <p>Order History</p>
             <div class="order-history table-responsive">
                 <div class="order-history table-responsive">
@@ -74,8 +80,31 @@
                     {% else %}
                     <p>No order history found.</p>
                     {% endif %}
-
                 </div>
+            </div>
+        </div>
+        <!-- Recent Comments Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h4>Recent Comments</h4>
+                {% if latest_comments %}
+                    <div class="comments-section">
+                        {% for comment in latest_comments %}
+                            <div class="comment-card mb-3 p-3 border rounded">
+                                <div class="comment-content">
+                                    <p class="mb-1">{{ comment.content|truncatewords:50 }}</p>
+                                    <div class="comment-meta small">
+                                        on post: <a href="{% url 'post_detail' comment.post.post_slug %}">{{ comment.post.post_title }}</a>
+                                        <br>
+                                        {{ comment.created_on|date:"F j, Y" }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No comments yet.</p>
+                {% endif %}
             </div>
         </div>
     </div>

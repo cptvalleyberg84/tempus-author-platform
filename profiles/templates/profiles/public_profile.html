@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <hr>
+                <h2 class="logo-font mb-4">{{ profile.user.username }}'s Profile</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="profile-image-container text-center mb-4">
+                    {% if profile.profile_image %}
+                        <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="rounded-circle profile-image">
+                    {% else %}
+                        <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle profile-image">
+                    {% endif %}
+                </div>
+                {% if profile.profile_bio %}
+                    <div class="bio-section mb-4">
+                        <h4>About</h4>
+                        <p>{{ profile.profile_bio }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+         <!-- Recent Comments Section -->
+         <div class="row mt-4">
+            <div class="col-12">
+                <h4>Recent Comments</h4>
+                {% if latest_comments %}
+                    <div class="comments-section">
+                        {% for comment in latest_comments %}
+                            <div class="comment-card mb-3 p-3 border rounded">
+                                <div class="comment-content">
+                                    <p class="mb-1">{{ comment.content|truncatewords:50 }}</p>
+                                    <div class="comment-meta small text-muted">
+                                        on post: <a href="{% url 'post_detail' comment.post.post_slug %}">{{ comment.post.post_title }}</a>
+                                        <br>
+                                        {{ comment.created_on|date:"F j, Y" }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No comments yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

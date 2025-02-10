@@ -6,20 +6,20 @@ from django_countries.fields import CountryField
 from django.core.validators import RegexValidator
 
 
-# Create your models here.
 class UserProfile(models.Model):
     """
     A user profile model for maintaining default delivery
     information, order history, and recent activity
     """
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile'
+    )
 
     postcode_validator = RegexValidator(
         regex=r'^[A-Za-z0-9]{4,6}$',
         message='Postcode must be 4-6 characters. Only letters and numbers'
     )
-    # Profile specific fields
     profile_image = models.ImageField(
         upload_to='profile_images',
         null=True,
@@ -29,7 +29,6 @@ class UserProfile(models.Model):
 
     profile_bio = models.TextField(max_length=500, blank=True)
 
-    # Default adress information
     profile_full_name = models.CharField(max_length=50, null=True, blank=True)
 
     profile_email = models.EmailField(max_length=254, null=True, blank=True)
@@ -64,5 +63,4 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     """ Create or update the user profile """
     if created:
         UserProfile.objects.create(user=instance)
-    # Existing users: just save the profile
-    instance.userprofile.save()
+    instance.profile.save()

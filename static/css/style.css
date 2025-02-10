@@ -58,3 +58,21 @@ body {
 input, textarea {
     color: black !important;
 }
+
+/* Navigation Profile Image */
+.nav-profile-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.nav-profile-image:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.nav-link.dropdown-toggle {
+    padding: 0.5rem 1rem;
+}
