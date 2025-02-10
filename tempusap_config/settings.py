@@ -174,12 +174,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(
-        BASE_DIR, 'env', 'Lib', 'site-packages', 'django', 'contrib',
-        'admin', 'static'
-    ),
-    os.path.join(BASE_DIR, 'env', 'Lib', 'site-packages',
-                 'django_summernote', 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -226,6 +220,24 @@ CSP_STYLE_SRC = [
     "*.googleapis.com",
     "*.cdnjs.cloudflare.com",
     "*.jsdelivr.net",
+    "https://*.amazonaws.com",
+    "https://*.googleapis.com",
+    "https://*.cdnjs.cloudflare.com",
+    "https://*.jsdelivr.net",
+]
+CSP_STYLE_SRC_ELEM = [
+    "'self'",
+    "'unsafe-inline'",
+    "*.amazonaws.com",
+    "*.googleapis.com",
+    "*.cdnjs.cloudflare.com",
+    "*.jsdelivr.net",
+    "https://*.amazonaws.com",
+    "https://*.googleapis.com",
+    "https://*.cdnjs.cloudflare.com",
+    "https://*.jsdelivr.net",
+    "https://cdnjs.cloudflare.com",
+    "cdnjs.cloudflare.com"
 ]
 CSP_SCRIPT_SRC = [
     "'self'",
@@ -247,6 +259,12 @@ CSP_FONT_SRC = [
     "*.googleapis.com",
     "*.gstatic.com",
     "*.cdnjs.cloudflare.com",
+    "https://*.googleapis.com",
+    "https://*.gstatic.com",
+    "https://*.cdnjs.cloudflare.com",
+    "https://cdnjs.cloudflare.com",
+    "cdnjs.cloudflare.com",
+    "data:",
 ]
 CSP_CONNECT_SRC = [
     "'self'",
