@@ -222,7 +222,7 @@ elif 'USE_AWS' in os.environ:
     }
 
     AWS_STORAGE_BUCKET_NAME = 'tempusap-bucket'
-    AWS_S3_REGION_NAME = 'eu-west-1'
+    AWS_S3_REGION_NAME = 'eu-north-1'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
@@ -294,3 +294,9 @@ else:
 SUMMERNOTE_CONFIG = {
     'attachment_filesize_limit': 5 * 1024 * 1024,  # 5MB limit
 }
+
+# Image upload settings
+MAX_UPLOAD_SIZE = 2 * 1024 * 1024  # 2MB lmit
+MAX_IMAGE_WIDTH = 1800
+MAX_IMAGE_HEIGHT = 1800
+ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif']
