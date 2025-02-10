@@ -1,5 +1,7 @@
 from django import forms
 from .models import CarouselItem
+from django.core.exceptions import ValidationError
+from django.core.files.images import get_image_dimensions
 
 
 class CarouselItemAdminForm(forms.ModelForm):
@@ -28,3 +30,32 @@ class CarouselItemAdminForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+
+        if image:
+            try:
+                w, h = get_image_dimensions(image)
+                min_width = 1600
+                min_height = 800
+
+                if w != min_width or h != min_height:
+                    raise ValidationError(
+                        f'Image must be at least '
+                        f'{min_width}x{min_height} '
+                        'pixels. Your image is '
+                        f'{w}x{h} pixels.'
+                    )
+
+                if image.size > 5 * 1024 * 1024:  # 5MB
+                    raise ValidationError(
+                        'Image keep filesize under 5MB.'
+                    )
+
+            except Exception:
+                raise ValidationError(
+                    'Please ensure the file is a valid image.'
+                )
+
+        return image

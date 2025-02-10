@@ -20,6 +20,13 @@ class CarouselItemAdmin(admin.ModelAdmin):
                 ('title', 'style'),
                 'subtitle',
                 'description',
+            )
+        }),
+        ('Image Settings', {
+            'description': (
+                'Image min 1600x800 (best fit 1920x1080) for optimal display.'
+            ),
+            'fields': (
                 'image',
                 'alt_text',
             )
