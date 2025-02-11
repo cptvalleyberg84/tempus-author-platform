@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Category, Product, Review
 
 
-# Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         'friendly_name',

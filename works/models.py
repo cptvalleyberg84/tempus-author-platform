@@ -60,7 +60,6 @@ class Review(models.Model):
 
     class Meta:
         ordering = ['-created_date']
-        # Ensure one review per user per product
         unique_together = ('product', 'user')
 
     def __str__(self):

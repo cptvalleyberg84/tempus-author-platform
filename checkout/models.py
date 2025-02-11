@@ -6,7 +6,6 @@ from django.core.validators import RegexValidator
 from profiles.models import UserProfile
 
 
-# Create your models here.
 class Order(models.Model):
 
     user_profile = models.ForeignKey(

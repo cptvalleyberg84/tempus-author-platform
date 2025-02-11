@@ -123,13 +123,6 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'tempusap_config.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': (
@@ -156,10 +149,6 @@ AUTH_PASSWORD_VALIDATORS = [
         ),
     },
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -211,8 +200,12 @@ if USE_AWS:
 else:
     # Use local storage for static and media files in development
     STORAGES = {
-        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
-        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage"
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+        },
     }
 
 # Content Security Policy
@@ -224,6 +217,9 @@ CSP_STYLE_SRC = [
     "*.googleapis.com",
     "*.cdnjs.cloudflare.com",
     "*.jsdelivr.net",
+    "https://*.jsdelivr.net",
+    "https://*.jsdelivr.net",
+    "https://*.jsdelivr.net",
     "https://*.amazonaws.com",
     "https://*.googleapis.com",
     "https://*.cdnjs.cloudflare.com",
@@ -304,7 +300,6 @@ MESSAGE_TAGS = {
 }
 
 # Stripe settings
-
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
@@ -328,7 +323,7 @@ SUMMERNOTE_CONFIG = {
     'attachment_filesize_limit': 5 * 1024 * 1024,  # 5MB limit
 }
 
-# Image upload settings
+# Profile Image upload settings
 MAX_UPLOAD_SIZE = 2 * 1024 * 1024  # 2MB lmit
 MAX_IMAGE_WIDTH = 1800
 MAX_IMAGE_HEIGHT = 1800

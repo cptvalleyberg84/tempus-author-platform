@@ -10,7 +10,9 @@ def highlight_yellow(text, search_term):
     if text is not None and search_term:
         text = str(text)
         src_str = re.compile(re.escape(search_term), re.IGNORECASE)
-        str_replaced = src_str.sub(lambda m: f'<span class="highlight">{m.group()}</span>', text)
+        str_replaced = src_str.sub(
+            lambda m: f'<span class="highlight">{m.group()}</span>', text
+        )
         return mark_safe(str_replaced)
     return text
 
