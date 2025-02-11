@@ -3,6 +3,14 @@ from django.core.validators import MinLengthValidator, EmailValidator
 
 
 class CollaborationRequest(models.Model):
+    """
+    Model representing collaboration requests from users.
+
+    This model stores and manages collaboration requests submitted through the
+    about page form. It includes various types of collaboration requests such as
+    project collaborations, mentorship, business opportunities, etc.
+    """
+
     STATUS_CHOICES = [
         ('NEW', 'New'),
         ('READ', 'Read'),
@@ -63,6 +71,12 @@ class CollaborationRequest(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        """
+        Meta class for CollaborationRequest model.
+
+        Defines model-specific settings including ordering, indexes,
+        and verbose names for admin interface.
+        """
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['created_at']),
@@ -73,12 +87,18 @@ class CollaborationRequest(models.Model):
         verbose_name_plural = 'Collaboration Requests'
 
     def __str__(self):
+        """
+        Returns a string representation of the CollaborationRequest.
+        """
         return (
             f"{self.name} - {self.collaboration_type} "
             f"({self.created_at.strftime('%Y-%m-%d')})"
         )
 
     def mark_as_read(self):
+        """
+        Marks the collaboration request as read.
+        """
         if not self.is_read:
             self.is_read = True
             self.status = 'READ'

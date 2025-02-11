@@ -4,6 +4,10 @@ from .models import CollaborationRequest
 
 @admin.register(CollaborationRequest)
 class CollaborationRequestAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for managing collaboration requests.
+    """
+
     list_display = (
         'name', 'email', 'collaboration_type', 'status', 
         'is_read', 'created_at'
@@ -33,9 +37,15 @@ class CollaborationRequestAdmin(admin.ModelAdmin):
     actions = ['mark_as_read', 'mark_as_unread']
 
     def mark_as_read(self, request, queryset):
+        """
+        Marks selected collaboration requests as read.
+        """
         queryset.update(is_read=True, status='READ')
     mark_as_read.short_description = "Mark selected requests as read"
 
     def mark_as_unread(self, request, queryset):
+        """
+        Marks selected collaboration requests as unread.
+        """
         queryset.update(is_read=False, status='NEW')
     mark_as_unread.short_description = "Mark selected requests as unread"
