@@ -6,6 +6,10 @@ from django.utils.html import format_html
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
+    """
+    Admin configuration for managing blog posts.
+    """
+
     summernote_fields = ('post_content',)
     list_display = (
         'post_title',
@@ -21,6 +25,9 @@ class PostAdmin(SummernoteModelAdmin):
     ordering = ('-post_created_on',)
 
     def preview_image(self, obj):
+        """
+        Generates HTML for displaying post featured image preview.
+        """
         if obj.post_featured_image:
             return format_html(
                 '<img src="{}" style="max-height: 50px;"/>',
@@ -31,6 +38,9 @@ class PostAdmin(SummernoteModelAdmin):
     preview_image.short_description = 'Featured Image'
 
     def save_model(self, request, obj, form, change):
+        """
+        Sets the post author to current user when creating new post.
+        """
         if not change:
             obj.post_author = request.user
         super().save_model(request, obj, form, change)
@@ -38,13 +48,23 @@ class PostAdmin(SummernoteModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for managing blog comments.
+    """
+
     list_display = ('author', 'post', 'created_on', 'active')
     list_filter = ('active', 'created_on')
     search_fields = ('author__username', 'content')
     actions = ['approve_comments', 'hide_comments']
 
     def approve_comments(self, request, queryset):
+        """
+        Action to approve selected comments.
+        """
         queryset.update(active=True)
 
     def hide_comments(self, request, queryset):
+        """
+        Action to hide selected comments.
+        """
         queryset.update(active=False)

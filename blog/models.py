@@ -5,11 +5,18 @@ from django.urls import reverse
 
 
 def validate_not_empty(value):
+    """
+    Validates that a field value is not empty or just whitespace.
+    """
     if not value.strip():
         raise ValidationError('This field cannot be empty or just whitespace.')
 
 
 class Post(models.Model):
+    """
+    Model representing a blog post in the system.
+    """
+
     STATUS_CHOICES = (
         (0, "Draft"),
         (1, "Published")
@@ -54,17 +61,29 @@ class Post(models.Model):
     )
 
     def get_absolute_url(self):
+        """
+        Returns the URL to access a particular post instance.
+        """
         return reverse('post_detail', kwargs={'slug': self.post_slug})
 
     class Meta:
+        """
+        Meta class for Post model.
+        """
         ordering = ['-post_created_on']
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
 
     def __str__(self):
+        """
+        String representation of the Post model.
+        """
         return self.post_title
 
     def save(self, *args, **kwargs):
+        """
+        Custom save method to automatically generate post excerpt.
+        """
         if not self.post_excerpt and self.post_content:
             from django.utils.html import strip_tags
             self.post_excerpt = strip_tags(self.post_content)[:150] + '...'
@@ -72,6 +91,10 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Model representing comments on blog posts.
+    """
+
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
@@ -93,9 +116,15 @@ class Comment(models.Model):
     )
 
     class Meta:
+        """
+        Meta class for Comment model.
+        """
         ordering = ['created_on']
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
 
     def __str__(self):
+        """
+        String representation of the Comment model.
+        """
         return f'Comment by {self.author} on {self.post}'

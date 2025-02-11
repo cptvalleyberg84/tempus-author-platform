@@ -3,7 +3,14 @@ from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form for creating and editing blog post comments.
+    """
+
     class Meta:
+        """
+        Meta class for CommentForm.
+        """
         model = Comment
         fields = ('content',)
         widgets = {

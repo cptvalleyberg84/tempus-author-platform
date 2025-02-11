@@ -8,21 +8,33 @@ from .forms import CommentForm
 
 
 class BlogListView(ListView):
+    """
+    View for displaying a paginated list of published blog posts.
+    """
     model = Post
     template_name = 'blog/blog.html'
     context_object_name = 'posts'
     paginate_by = 6
 
     def get_queryset(self):
+        """
+        Returns queryset of published posts ordered by creation date.
+        """
         return Post.objects.filter(post_status=1).order_by('-post_created_on')
 
     def get_context_data(self, **kwargs):
+        """
+        Adds title to the context data.
+        """
         context = super().get_context_data(**kwargs)
         context['title'] = 'Blog'
         return context
 
 
 class PostDetailView(DetailView):
+    """
+    View for displaying a single blog post with its comments.
+    """
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
@@ -30,9 +42,15 @@ class PostDetailView(DetailView):
     slug_field = 'post_slug'
 
     def get_queryset(self):
+        """
+        Returns queryset of published posts only.
+        """
         return Post.objects.filter(post_status=1)
 
     def get_context_data(self, **kwargs):
+        """
+        Adds comments and comment form to the context data.
+        """
         context = super().get_context_data(**kwargs)
         context['comments'] = self.object.comments.filter(active=True)
         if self.request.user.is_authenticated:
@@ -40,6 +58,9 @@ class PostDetailView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        """
+        Handles comment submission on a blog post.
+        """
         self.object = self.get_object()
         if not request.user.is_authenticated:
             messages.error(request, 'Please log in to comment.')
@@ -61,6 +82,9 @@ class PostDetailView(DetailView):
 
 @login_required
 def comment_edit(request, post_slug, comment_id):
+    """
+    View for editing an existing comment.
+    """
     comment = get_object_or_404(
         Comment, id=comment_id, post__post_slug=post_slug)
 
@@ -87,6 +111,9 @@ def comment_edit(request, post_slug, comment_id):
 
 @login_required
 def comment_delete(request, post_slug, comment_id):
+    """
+    View for deleting an existing comment.
+    """
     comment = get_object_or_404(
         Comment, id=comment_id, post__post_slug=post_slug)
 
