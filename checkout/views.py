@@ -12,6 +12,13 @@ from .email_confirmation import send_confirmation_email
 
 
 def checkout(request):
+    """
+    Handle the checkout process for a user's bookcart.
+    
+    Processes both GET and POST requests. For GET requests, displays the checkout
+    form and sets up Stripe payment. For POST requests, validates the order form,
+    creates the order, and processes the payment.
+    """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
@@ -161,7 +168,10 @@ def checkout(request):
 
 def checkout_success(request, order_id):
     """
-    Handle successful checkouts
+    Handle successful checkouts and post-purchase processing.
+    
+    Updates order status, saves user profile information if requested,
+    and cleans up the session bookcart.
     """
     order = get_object_or_404(Order, id=order_id)
 

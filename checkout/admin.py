@@ -3,18 +3,27 @@ from .models import Order, OrderItem
 
 
 class OrderLineItemAdminInline(admin.TabularInline):
+    """
+    Inline admin for managing order items within the order admin interface.
+    """
     model = OrderItem
     fields = ('product', 'quantity', 'price',)
     readonly_fields = ('price',)
     extra = 1
 
     def get_readonly_fields(self, request, obj=None):
+        """
+        Make product field readonly for existing orders.
+        """
         if obj:
             return ['product', 'price']
         return ['price']
 
 
 class OrderAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for managing customer orders.
+    """
     inlines = (OrderLineItemAdminInline,)
     readonly_fields = ('id', 'total_amount', 'order_date')
 
@@ -24,7 +33,7 @@ class OrderAdmin(admin.ModelAdmin):
                 'id',
                 'user',
                 'order_date',
-                'total_amount'
+                'total_amount',
                 'payment_status'
             )
         }),

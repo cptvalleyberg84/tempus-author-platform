@@ -7,6 +7,9 @@ from profiles.models import UserProfile
 
 
 class Order(models.Model):
+    """
+    Model representing a customer order in the system.
+    """
 
     user_profile = models.ForeignKey(
         UserProfile,
@@ -67,7 +70,9 @@ class Order(models.Model):
     )
 
     def update_total(self):
-        """Calculate and update the total amount from all order items"""
+        """
+        Calculate and update the total amount from all order items.
+        """
         total = self.orderitem_set.aggregate(
             total=Sum(F('quantity') * F('price')) or 0
         )['total'] or 0
@@ -75,13 +80,23 @@ class Order(models.Model):
         self.save()
 
     def __str__(self):
+        """
+        String representation of the Order model.
+        """
         return f'Order {self.id} - {self.user.username}'
 
     class Meta:
+        """
+        Meta class for Order model.
+        """
         ordering = ['-order_date']
 
 
 class OrderItem(models.Model):
+    """
+    Model representing individual items within an order.
+    """
+
     order = models.ForeignKey(
         'Order',
         on_delete=models.CASCADE,
@@ -98,8 +113,7 @@ class OrderItem(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Override the save method to automatically set the price
-        from the product
+        Override the save method to automatically set the price.
         """
         if not self.price and self.product:
             self.price = self.product.price
@@ -112,7 +126,7 @@ class OrderItem(models.Model):
         order.update_total()
 
     def __str__(self):
-        return (
-            f"{self.quantity} x {self.product.name} "
-            f"on order {self.order.id}"
-        )
+        """
+        String representation of the OrderItem model.
+        """
+        return f'{self.quantity} x {self.product.name} on order {self.order.id}'

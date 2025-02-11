@@ -4,7 +4,14 @@ from .models import Order, OrderItem
 
 
 class OrderForm(forms.ModelForm):
+    """
+    Form for creating and managing order details.
+    """
+
     class Meta:
+        """
+        Meta class for OrderForm.
+        """
         model = Order
         fields = (
             'full_name',
@@ -18,6 +25,9 @@ class OrderForm(forms.ModelForm):
         )
 
     def clean_billing_postcode(self):
+        """
+        Validate the billing postcode format.
+        """
         postcode = self.cleaned_data.get('billing_postcode')
         if not re.match(r'^[A-Za-z0-9]{4,6}$', postcode):
             raise forms.ValidationError(
@@ -29,7 +39,7 @@ class OrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
+        labels and set autofocus on first field.
         """
         super().__init__(*args, **kwargs)
         placeholders = {
@@ -55,7 +65,14 @@ class OrderForm(forms.ModelForm):
 
 
 class OrderItemForm(forms.ModelForm):
+    """
+    Form for managing individual items within an order.
+    """
+
     class Meta:
+        """
+        Meta class for OrderItemForm.
+        """
         model = OrderItem
         fields = ['quantity']
         widgets = {
