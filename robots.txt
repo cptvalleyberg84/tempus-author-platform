@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /profiles/
+Disallow: /search/
+Disallow: /signup/
+Disallow: /bookcart/
+Disallow: /password_reset/
+Disallow: /checkout/
+Disallow: /checkout_success/
+Disallow: https://tempusap-74bb3112eef0.herokuapp.com/sitemap.xml
