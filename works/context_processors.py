@@ -5,7 +5,12 @@ from works.models import Product
 
 def bookcart_contents(request):
     """
-    Ensures that the book cart contents are available when rendering every page
+    Context processor for book cart data.
+    
+    Makes book cart information available to all templates, including:
+    - List of cart items with quantities and subtotals
+    - Total price of all items
+    - Total number of items in cart
     """
     bookcart = request.session.get('bookcart', {})
 

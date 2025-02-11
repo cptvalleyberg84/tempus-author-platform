@@ -4,6 +4,9 @@ from django.urls import reverse
 
 
 class Category(models.Model):
+    """
+    Model representing product categories.
+    """
     class Meta:
         verbose_name_plural = 'Categories'
 
@@ -11,13 +14,22 @@ class Category(models.Model):
     friendly_name = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
+        """
+        String representation of the Category model.
+        """
         return self.friendly_name or self.name
 
     def get_friendly_name(self):
+        """
+        Get the user-friendly name for the category.
+        """
         return self.friendly_name
 
 
 class Product(models.Model):
+    """
+    Model representing products/works available for purchase.
+    """
     category = models.ForeignKey(
         'Category', null=True, blank=True, on_delete=models.SET_NULL
     )
@@ -30,19 +42,34 @@ class Product(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
 
     def average_rating(self):
+        """
+        Calculate the average rating from approved reviews.
+        """
         reviews = self.reviews.filter(approved=True)
         if reviews:
             return sum(review.rating for review in reviews) / len(reviews)
         return 0
 
     def __str__(self):
+        """
+        String representation of the Product model.
+        """
         return self.name
 
     def get_absolute_url(self):
+        """
+        Get the URL for the product detail view.
+        """
         return reverse('work_detail', kwargs={'work_id': self.id})
 
 
 class Review(models.Model):
+    """
+    Model representing user reviews for products.
+    
+    Each user can only submit one review per product.
+    Reviews must be approved before being displayed.
+    """
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='reviews'
     )
@@ -63,4 +90,7 @@ class Review(models.Model):
         unique_together = ('product', 'user')
 
     def __str__(self):
+        """
+        String representation of the Review model.
+        """
         return f'{self.user.username} review for {self.product.name}'

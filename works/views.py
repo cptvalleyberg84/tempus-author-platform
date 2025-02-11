@@ -8,7 +8,9 @@ from .forms import ReviewForm
 
 
 def all_works(request):
-    """A view that displays All the Products in the Works page"""
+    """
+    Display all products/works with optional category filtering.
+    """
     works = Product.objects.all()
     categories = Category.objects.all()
     current_category = None
@@ -28,8 +30,12 @@ def all_works(request):
 
 
 def work_detail(request, work_id):
-    """ A view to show individual work details """
-
+    """
+    Display detailed information about a specific work.
+    
+    Shows work details, approved reviews, and handles user-specific
+    display logic for reviews and purchases.
+    """
     work = get_object_or_404(Product, pk=work_id)
     reviews = work.reviews.filter(approved=True)
     review_form = ReviewForm()
@@ -65,14 +71,17 @@ def work_detail(request, work_id):
 
 
 def view_bookcart(request):
-    """ A view that renders the book cart contents page """
+    """
+    Display the contents of the user's book cart.
+    """
     return render(request, 'works/bookcart.html')
 
 
 def add_to_bookcart(request, work_id):
-    """ Add a quantity of the specified product to the cart """
+    """
+    Add a specified quantity of a work to the book cart.
+    """
     work_id = str(work_id)
-
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     bookcart = request.session.get('bookcart', {})
@@ -87,8 +96,11 @@ def add_to_bookcart(request, work_id):
 
 
 def adjust_bookcart(request, work_id):
-    """ Adjust the quantity of the specified product """
-
+    """
+    Adjust the quantity of a work in the book cart.
+    
+    If quantity is set to 0, the item is removed from the cart.
+    """
     quantity = int(request.POST.get('quantity'))
     bookcart = request.session.get('bookcart', {})
 
@@ -102,8 +114,9 @@ def adjust_bookcart(request, work_id):
 
 
 def remove_from_bookcart(request, work_id):
-    """ Remove the book from the book cart """
-
+    """
+    Remove a work from the book cart.
+    """
     try:
         bookcart = request.session.get('bookcart', {})
         bookcart.pop(str(work_id))
@@ -118,6 +131,12 @@ def remove_from_bookcart(request, work_id):
 
 @login_required
 def add_review(request, work_id):
+    """
+    Add a review for a purchased work.
+    
+    Only allows reviews from users who have purchased the work.
+    Reviews require approval before being displayed.
+    """
     work = get_object_or_404(Product, id=work_id)
 
     has_purchased = OrderItem.objects.filter(
