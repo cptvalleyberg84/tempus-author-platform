@@ -199,17 +199,21 @@ if USE_AWS:
     AWS_S3_FILE_OVERWRITE = False
     AWS_QUERYSTRING_AUTH = False
 
-    # Use S3 for both static and media files
+    # Tell Django to use S3 for storage
     STORAGES = {
         "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
         "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
     }
 
+    # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 else:
-    STATIC_URL = '/static/'
-    MEDIA_URL = '/media/'
+    # Use local storage for static and media files in development
+    STORAGES = {
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    }
 
 # Content Security Policy
 CSP_DEFAULT_SRC = ["'self'", "*.amazonaws.com"]

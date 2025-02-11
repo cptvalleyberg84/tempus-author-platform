@@ -36,26 +36,44 @@ class CarouselItemAdminForm(forms.ModelForm):
 
         if image:
             try:
+                # Check if it's a valid image file
                 w, h = get_image_dimensions(image)
-                min_width = 1600
-                min_height = 800
 
-                if w != min_width or h != min_height:
+                if not w or not h:
                     raise ValidationError(
-                        f'Image must be at least '
-                        f'{min_width}x{min_height} '
-                        'pixels. Your image is '
-                        f'{w}x{h} pixels.'
+                        'Could not read image dimensions.'
+                        ' Please ensure the file is a valid image.'
                     )
 
-                if image.size > 5 * 1024 * 1024:  # 5MB
+                # Minimum dimensions
+                min_width = 800
+                min_height = 400
+
+                if w < min_width or h < min_height:
                     raise ValidationError(
-                        'Image keep filesize under 5MB.'
+                        f'Image must be at least {min_width}x{min_height} px. '
+                        f'Your image is {w}x{h} pixels. '
                     )
 
-            except Exception:
-                raise ValidationError(
-                    'Please ensure the file is a valid image.'
-                )
+                # Maximum file size (5MB)
+                if image.size > 5 * 1024 * 1024:
+                    raise ValidationError(
+                        'Image file size must be under 5MB. '
+                        'Please compress your image.'
+                    )
+
+            except Exception as e:
+                if 'image dimensions' in str(e):
+                    raise ValidationError(
+                        'Could not read image dimensions. Please ensure'
+                        ' the file is a valid image format '
+                        '(JPEG, PNG, GIF).'
+                        '(JPEG, PNG, GIF).'
+                    )
+                else:
+                    raise ValidationError(
+                        'Please ensure the file is a valid image in JPEG, '
+                        'PNG, or GIF format.'
+                    )
 
         return image
