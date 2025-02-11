@@ -8,12 +8,16 @@ from .models import CarouselItem
 
 
 def index(request):
-    """A view that displays the index page"""
+    """
+    Display the index page.
+    """
     return render(request, 'home/index.html')
 
 
 def search(request):
-    """A view that displays the search results page"""
+    """
+    Display search results for works and blog posts.
+    """
     query = request.GET.get('q', '')
     works = []
     blog_posts = []
@@ -46,7 +50,9 @@ def search(request):
 
 
 def home(request):
-
+    """
+    Display the home page with carousel items and latest content.
+    """
     carousel_items = CarouselItem.objects.filter(
         is_active=True,
         start_date__lte=timezone.now()

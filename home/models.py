@@ -3,6 +3,10 @@ from django.utils import timezone
 
 
 class CarouselItem(models.Model):
+    """
+    Model representing items in the homepage carousel.
+    """
+
     STYLE_CHOICES = [
         ('product', 'Product Style'),
         ('blog', 'Blog Style'),
@@ -69,11 +73,17 @@ class CarouselItem(models.Model):
     )
 
     class Meta:
+        """
+        Meta class for CarouselItem model.
+        """
         ordering = ['order', '-start_date']
         verbose_name = "Carousel Item"
         verbose_name_plural = "Carousel Items"
 
     def get_link(self):
+        """
+        Get the appropriate URL for the carousel item based on its style.
+        """
         if self.style == 'product' and self.product:
             return self.product.get_absolute_url()
         elif self.style == 'blog' and self.blog_post:
@@ -83,6 +93,9 @@ class CarouselItem(models.Model):
         return "#"
 
     def is_visible(self):
+        """
+        Check if the carousel item should be visible based on dates and active status.
+        """
         now = timezone.now()
         return (
             self.is_active and
@@ -91,4 +104,7 @@ class CarouselItem(models.Model):
         )
 
     def __str__(self):
+        """
+        String representation of the CarouselItem model.
+        """
         return f"{self.title} ({self.style})"

@@ -5,11 +5,17 @@ from django.core.files.images import get_image_dimensions
 
 
 class CarouselItemAdminForm(forms.ModelForm):
+    """
+    Form for managing carousel items in the admin interface.
+    """
     class Meta:
         model = CarouselItem
         fields = '__all__'
 
     def clean(self):
+        """
+        Validate that the appropriate link type is provided based on the selected style.
+        """
         cleaned_data = super().clean()
         style = cleaned_data.get('style')
         product = cleaned_data.get('product')
@@ -32,6 +38,9 @@ class CarouselItemAdminForm(forms.ModelForm):
         return cleaned_data
 
     def clean_image(self):
+        """
+        Validate image dimensions and file size for carousel items.
+        """
         image = self.cleaned_data.get('image')
 
         if image:
@@ -67,7 +76,6 @@ class CarouselItemAdminForm(forms.ModelForm):
                     raise ValidationError(
                         'Could not read image dimensions. Please ensure'
                         ' the file is a valid image format '
-                        '(JPEG, PNG, GIF).'
                         '(JPEG, PNG, GIF).'
                     )
                 else:

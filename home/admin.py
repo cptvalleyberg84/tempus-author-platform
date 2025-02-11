@@ -5,6 +5,9 @@ from .forms import CarouselItemAdminForm
 
 @admin.register(CarouselItem)
 class CarouselItemAdmin(admin.ModelAdmin):
+    """
+    Admin interface for managing carousel items on the home page.
+    """
     form = CarouselItemAdminForm
     list_display = (
         'title',
