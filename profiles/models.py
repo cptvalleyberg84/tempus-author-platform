@@ -8,8 +8,10 @@ from django.core.validators import RegexValidator
 
 class UserProfile(models.Model):
     """
-    A user profile model for maintaining default delivery
-    information, order history, and recent activity
+    User profile model for storing user-specific information.
+    
+    Maintains user's personal details, delivery information,
+    and profile settings.
     """
 
     user = models.OneToOneField(
@@ -55,12 +57,20 @@ class UserProfile(models.Model):
     profile_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """
+        String representation of the UserProfile model.
+        """
         return self.user.username
 
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
-    """ Create or update the user profile """
+    """
+    Signal handler to create or update user profile when User model is saved.
+    
+    Creates a new UserProfile instance for new users and ensures
+    profile is saved for existing users.
+    """
     if created:
         UserProfile.objects.create(user=instance)
     instance.profile.save()

@@ -7,12 +7,20 @@ import re
 
 
 class UserProfileForm(forms.ModelForm):
-    """Form for full profile edit"""
+    """
+    Form for managing user profile information.
+    
+    Handles validation and cleaning of profile data including email,
+    phone number, address details, and profile image.
+    """
     class Meta:
         model = UserProfile
         exclude = ('user',)
 
     def clean(self):
+        """
+        Validate that all required address fields are provided together.
+        """
         cleaned_data = super().clean()
         address1 = cleaned_data.get('profile_address1')
         city = cleaned_data.get('profile_city')
@@ -29,6 +37,9 @@ class UserProfileForm(forms.ModelForm):
         return cleaned_data
 
     def clean_profile_email(self):
+        """
+        Validate email domain is not a test/example domain.
+        """
         email = self.cleaned_data.get('profile_email')
         if email:
             domain = email.split('@')[1]
@@ -37,6 +48,9 @@ class UserProfileForm(forms.ModelForm):
         return email
 
     def clean_profile_postcode(self):
+        """
+        Validate postcode format.
+        """
         postcode = self.cleaned_data.get('profile_postcode')
         if postcode:
             if not re.match(r'^[A-Za-z0-9]{4,6}$', postcode):
@@ -47,6 +61,9 @@ class UserProfileForm(forms.ModelForm):
         return postcode
 
     def clean_profile_phone_number(self):
+        """
+        Validate phone number format.
+        """
         phone = self.cleaned_data.get('profile_phone_number')
         if phone:
             if not re.match(r'^\+?1?\d{9,15}$', phone):
@@ -56,6 +73,9 @@ class UserProfileForm(forms.ModelForm):
         return phone
 
     def clean_profile_image(self):
+        """
+        Validate profile image size and dimensions.
+        """
         image = self.cleaned_data.get('profile_image')
 
         if image:
@@ -85,6 +105,9 @@ class UserProfileForm(forms.ModelForm):
         return image
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize form with custom placeholders and field settings.
+        """
         super().__init__(*args, **kwargs)
         placeholders = {
             'profile_full_name': 'Full Name',
@@ -112,12 +135,19 @@ class UserProfileForm(forms.ModelForm):
 
 
 class PublicProfileForm(forms.ModelForm):
-    """Form for public profile view"""
+    """
+    Form for displaying read-only public profile information.
+    
+    Shows limited profile fields with all inputs disabled.
+    """
     class Meta:
         model = UserProfile
         fields = ('profile_image', 'profile_bio')
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize form with all fields set to read-only.
+        """
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['readonly'] = True

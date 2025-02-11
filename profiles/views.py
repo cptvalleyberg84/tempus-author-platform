@@ -9,7 +9,12 @@ from blog.models import Comment
 
 @login_required
 def profile(request):
-    """ Display the user's profile. """
+    """
+    Display and handle updates to the user's private profile.
+    
+    Shows user's profile information, latest comments, and order history.
+    Handles profile updates through POST requests.
+    """
     profile = get_object_or_404(UserProfile, user=request.user)
 
     latest_comments = Comment.objects.filter(author=request.user)\
@@ -47,7 +52,12 @@ def profile(request):
 
 
 def public_profile(request, user_id):
-    """ Display public profile view """
+    """
+    Display a user's public profile.
+    
+    Shows limited profile information and latest comments visible to other users.
+    Redirects to private profile if user views their own public profile.
+    """
     profile = get_object_or_404(UserProfile, user__id=user_id)
 
     if request.user.is_authenticated and request.user.id == user_id:
@@ -68,7 +78,12 @@ def public_profile(request, user_id):
 
 
 def order_history(request, order_id):
-    """ A view to show individual order history """
+    """
+    Display details of a specific past order.
+    
+    Shows the order confirmation page with a message indicating
+    this is a past order view.
+    """
     order = get_object_or_404(Order, id=order_id)
 
     messages.info(request, (
