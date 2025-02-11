@@ -1,3 +1,30 @@
+"""
+Django settings for Tempus Author Platform.
+
+This module contains all the settings for the Tempus Author Platform project:
+
+Key Settings:
+- Security settings (SECRET_KEY, DEBUG, ALLOWED_HOSTS)
+- Application definition and middleware configuration
+- Database configuration with support for both SQLite and PostgreSQL
+- Static and media files configuration with AWS S3 support
+- Authentication settings using django-allauth
+- Email configuration for both development and production
+- Stripe payment integration settings
+- Content Security Policy (CSP) configuration
+- Custom settings for profile images and file uploads
+
+Environment Variables:
+- SECRET_KEY: Django secret key
+- DATABASE_URL: Database connection URL (for production)
+- AWS_ACCESS_KEY_ID: AWS access key for S3
+- AWS_SECRET_ACCESS_KEY: AWS secret key for S3
+- STRIPE_PUBLIC_KEY: Stripe publishable key
+- STRIPE_SECRET_KEY: Stripe secret key
+- EMAIL_HOST_USER: SMTP email user
+- EMAIL_HOST_PASSWORD: SMTP email password
+"""
+
 import os
 import dj_database_url
 from django.contrib.messages import constants as messages

@@ -1,3 +1,13 @@
+/**
+ * Back to Top button functionality.
+ * 
+ * Features:
+ * - Shows button when user scrolls past 300px
+ * - Hides button when user is near the top
+ * - Smooth scrolling animation when clicked
+ * - Uses Bootstrap classes for visibility toggling
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
     const backToTopBtn = document.getElementById('back-to-top');
     

@@ -1,3 +1,20 @@
+/**
+ * Stripe payment integration for the checkout process.
+ * 
+ * This module handles:
+ * - Stripe Elements initialization and styling
+ * - Real-time card validation
+ * - Payment form submission and processing
+ * - Error handling and display
+ * - Loading state management
+ * - Postcode validation with custom regex
+ * 
+ * Dependencies:
+ * - jQuery for DOM manipulation and animations
+ * - Stripe.js library for payment processing
+ * - Font Awesome for error icons
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);

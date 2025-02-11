@@ -1,3 +1,18 @@
+/**
+ * Shopping cart quantity management functionality.
+ * 
+ * Features:
+ * - Quantity input validation (1-99 range)
+ * - Increment/decrement buttons with proper disabling
+ * - Custom input styling to remove browser spinners
+ * - Real-time quantity updates
+ * - Form submission handling
+ * 
+ * Dependencies:
+ * - jQuery for DOM manipulation and event handling
+ * - Bootstrap for input group styling
+ */
+
 $(document).ready(function() {
     
     // Disable +/- buttons outside 1-99 range and validate input
