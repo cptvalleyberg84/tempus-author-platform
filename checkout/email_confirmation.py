@@ -10,7 +10,7 @@ def send_confirmation_email(order):
 
     # Get order items for the email
     order_items = order.orderitem_set.all()
-    
+
     # Prepare context for email template
     context = {
         'order': order,
