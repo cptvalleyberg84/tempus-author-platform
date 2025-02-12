@@ -8,16 +8,31 @@ def send_confirmation_email(order):
     customer_email = order.email
     subject = f'Order Confirmation - Order Number {order.id}'
 
+    # Get order items for the email
+    order_items = order.orderitem_set.all()
+    
+    # Prepare context for email template
+    context = {
+        'order': order,
+        'contact_email': settings.CONTACT_DISPLAY_EMAIL,
+        'order_items': order_items,
+    }
+
+    # Render email body
     body = render_to_string(
         'checkout/confirmation_emails/confirmation_email_body.html',
-        {'order': order, 'contact_email': settings.CONTACT_DISPLAY_EMAIL}
+        context
     )
+
     try:
         send_mail(
             subject,
             body,
             settings.DEFAULT_FROM_EMAIL,
-            [customer_email]
+            [customer_email],
+            fail_silently=False,
         )
     except Exception as e:
-        print(f'An error occurred: {e}')
+        # Log the error details
+        print(f'Email error details: {str(e)}')
+        raise  # Re-raise the exception to be handled by the view

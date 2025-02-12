@@ -32,7 +32,6 @@ class Order(models.Model):
     )
     order_date = models.DateTimeField(auto_now_add=True)
 
-    email = models.EmailField(max_length=254)
     payment_status = models.CharField(
         max_length=50,
         choices=[
@@ -63,7 +62,7 @@ class Order(models.Model):
         null=False,
         blank=False,
         validators=[postcode_validator],
-        help_text='Enter a 4-6 characrters of postcode.'
+        help_text='Enter a 4-6 characters of postcode.'
     )
     billing_country = CountryField(
         blank_label='Country *', null=False, blank=False

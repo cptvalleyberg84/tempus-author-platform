@@ -77,7 +77,7 @@ def checkout(request):
                             item.product.price * item.quantity
                             for item in order.orderitem_set.all()
                         )
-                        order.total = total
+                        order.total_amount = total
                         order.save()
 
                         if 'save-info' in request.POST:
@@ -138,7 +138,7 @@ def checkout(request):
         # Pre-fill form for authenticated users
         if request.user.is_authenticated:
             try:
-                profile = request.user.userprofile
+                profile = UserProfile.objects.get(user=request.user)
                 initial_data = {
                     'full_name': profile.profile_full_name,
                     'email': profile.profile_email,
@@ -151,6 +151,8 @@ def checkout(request):
                 }
                 order_form = OrderForm(initial=initial_data)
             except UserProfile.DoesNotExist:
+                # If profile doesn't exist, create it
+                UserProfile.objects.create(user=request.user)
                 order_form = OrderForm()
         else:
             order_form = OrderForm()
@@ -185,27 +187,31 @@ def checkout_success(request, order_id):
     )
 
     if request.user.is_authenticated:
-        profile = request.user.userprofile
-        # Save the user's info
-        if 'save_info' in request.session:
-            profile_data = {
-                'profile_full_name': order.full_name,
-                'profile_email': order.email,
-                'profile_phone_number': order.phone_number,
-                'profile_address1': order.billing_address1,
-                'profile_address2': order.billing_address2,
-                'profile_city': order.billing_city,
-                'profile_postcode': order.billing_postcode,
-                'profile_country': order.billing_country,
-            }
+        try:
+            profile = request.user.profile
+            # Save the user's info
+            if 'save_info' in request.session:
+                profile_data = {
+                    'profile_full_name': order.full_name,
+                    'profile_email': order.email,
+                    'profile_phone_number': order.phone_number,
+                    'profile_address1': order.billing_address1,
+                    'profile_address2': order.billing_address2,
+                    'profile_city': order.billing_city,
+                    'profile_postcode': order.billing_postcode,
+                    'profile_country': order.billing_country,
+                }
 
-            user_profile_form = UserProfileForm(
-                data=profile_data, instance=profile)
-            if user_profile_form.is_valid():
-                user_profile_form.save()
-            else:
-                messages.error(request, 'There was an error with your form. \
-                    Please double check your information.')
+                user_profile_form = UserProfileForm(
+                    data=profile_data, instance=profile)
+                if user_profile_form.is_valid():
+                    user_profile_form.save()
+                else:
+                    messages.error(request, 'There was an error with your form. \
+                        Please double check your information.')
+
+        except UserProfile.DoesNotExist:
+            messages.error(request, 'Profile not found.')
 
     if 'bookcart' in request.session:
         del request.session['bookcart']
