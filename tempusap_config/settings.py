@@ -244,13 +244,14 @@ CSP_STYLE_SRC = [
     "*.googleapis.com",
     "*.cdnjs.cloudflare.com",
     "*.jsdelivr.net",
-    "https://*.jsdelivr.net",
-    "https://*.jsdelivr.net",
+    "*.bootstrapcdn.com",
+    "stackpath.bootstrapcdn.com",
     "https://*.jsdelivr.net",
     "https://*.amazonaws.com",
     "https://*.googleapis.com",
     "https://*.cdnjs.cloudflare.com",
     "https://*.jsdelivr.net",
+    "https://*.bootstrapcdn.com",
 ]
 CSP_STYLE_SRC_ELEM = [
     "'self'",
@@ -259,11 +260,14 @@ CSP_STYLE_SRC_ELEM = [
     "*.googleapis.com",
     "*.cdnjs.cloudflare.com",
     "*.jsdelivr.net",
+    "*.bootstrapcdn.com",
+    "stackpath.bootstrapcdn.com",
     "https://*.amazonaws.com",
     "https://*.googleapis.com",
     "https://*.cdnjs.cloudflare.com",
     "https://*.jsdelivr.net",
     "https://cdnjs.cloudflare.com",
+    "https://*.bootstrapcdn.com",
     "cdnjs.cloudflare.com"
 ]
 CSP_SCRIPT_SRC = [
@@ -274,6 +278,8 @@ CSP_SCRIPT_SRC = [
     "*.jquery.com",
     "*.jsdelivr.net",
     "*.stripe.com",
+    "*.bootstrapcdn.com",
+    "stackpath.bootstrapcdn.com",
 ]
 CSP_IMG_SRC = [
     "'self'",
@@ -286,10 +292,16 @@ CSP_FONT_SRC = [
     "*.googleapis.com",
     "*.gstatic.com",
     "*.cdnjs.cloudflare.com",
+    "*.amazonaws.com",
+    "*.bootstrapcdn.com",
+    "stackpath.bootstrapcdn.com",
     "https://*.googleapis.com",
     "https://*.gstatic.com",
     "https://*.cdnjs.cloudflare.com",
     "https://cdnjs.cloudflare.com",
+    "https://*.amazonaws.com",
+    "https://*.bootstrapcdn.com",
+    "http://*.bootstrapcdn.com",
     "cdnjs.cloudflare.com",
     "data:",
 ]
