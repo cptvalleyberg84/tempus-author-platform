@@ -22,7 +22,9 @@
                  data-bs-interval="{{ item.display_time }}">
                 
                 {% if item.get_link %}
-                <a href="{{ item.get_link }}" {% if item.open_in_new_tab %}target="_blank"{% endif %}>
+                <a href="{{ item.get_link }}" 
+                   {% if item.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                   aria-label="View {{ item.title }}{% if item.subtitle %}: {{ item.subtitle }}{% endif %}">
                 {% endif %}
                 
                 <div class="carousel-content">

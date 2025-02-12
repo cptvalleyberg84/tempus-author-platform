@@ -11,18 +11,23 @@
 
     <!-- Category Navigation -->
     <div class="text-center mb-4">
-        <a href="{% url 'works' %}" class="btn {% if not current_category %}btn-primary{% else %}btn-outline-primary{% endif %} me-2">
+        <a href="{% url 'works' %}" 
+           class="btn {% if not current_category %}btn-primary{% else %}btn-outline-primary{% endif %} me-2"
+           aria-label="View all works"
+           aria-current="{% if not current_category %}page{% endif %}">
             All
         </a>
         {% for category in categories %}
             <a href="{% url 'works' %}?category={{ category.name }}" 
-               class="btn {% if current_category == category.name %}btn-primary{% else %}btn-outline-primary{% endif %} me-2">
+               class="btn {% if current_category == category.name %}btn-primary{% else %}btn-outline-primary{% endif %} me-2"
+               aria-label="View works in category {{ category.friendly_name }}"
+               aria-current="{% if current_category == category.name %}page{% endif %}">
                 {{ category.friendly_name }}
             </a>
         {% endfor %}
     </div>
     
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-3">
         {% for work in works %}
             <div class="col">
                 <div class="card h-100">
@@ -57,7 +62,11 @@
                     </div>
                     
                     <div class="card-footer bg-white border-top-0">
-                        <a href="{% url 'work_detail' work.id %}" class="btn btn-outline-primary w-100">View Details</a>
+                        <a href="{% url 'work_detail' work.id %}" 
+                           class="btn btn-outline-primary w-100"
+                           aria-label="View details of {{ work.name }}">
+                            View Details
+                        </a>
                     </div>
                 </div>
             </div>

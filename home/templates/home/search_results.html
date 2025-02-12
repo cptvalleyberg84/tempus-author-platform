@@ -47,7 +47,11 @@
                         </div>
                         
                         <div class="card-footer bg-white border-top-0">
-                            <a href="{% url 'work_detail' work.id %}" class="btn btn-outline-primary w-100">View Details</a>
+                            <a href="{% url 'work_detail' work.id %}" 
+                               class="btn btn-outline-primary w-100"
+                               aria-label="View details of {{ work.name }}">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +70,11 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ post.post_title|highlight_yellow:search_term|safe }}</h5>
                             <p class="card-text">{{ post.post_content|smart_truncate:search_term|safe|truncatewords:30|highlight_yellow:search_term }}</p>
-                            <a href="{% url 'post_detail' post.post_slug %}" class="btn btn-primary">Read More</a>
+                            <a href="{% url 'post_detail' post.post_slug %}" 
+                               class="btn btn-primary"
+                               aria-label="Read more about {{ post.post_title }}">
+                                Read More
+                            </a>
                         </div>
                     </div>
                 </div>

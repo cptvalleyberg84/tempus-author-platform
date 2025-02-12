@@ -56,7 +56,9 @@
                             {% for order in orders %}
                             <tr>
                                 <td>
-                                    <a href="{% url 'order_history' order.id %}" title="{{ order.id }}">
+                                    <a href="{% url 'order_history' order.id %}" 
+                                       aria-label="View details of order {{ order.id }}"
+                                       title="{{ order.id }}">
                                         {{ order.id }}
                                     </a>
                                 </td>
@@ -94,7 +96,9 @@
                                 <div class="comment-content">
                                     <p class="mb-1">{{ comment.content|truncatewords:50 }}</p>
                                     <div class="comment-meta small">
-                                        on post: <a href="{% url 'post_detail' comment.post.post_slug %}">{{ comment.post.post_title }}</a>
+                                        on post: <a href="{% url 'post_detail' comment.post.post_slug %}"
+                                                  aria-label="View post: {{ comment.post.post_title }}">
+                                            {{ comment.post.post_title }}</a>
                                         <br>
                                         {{ comment.created_on|date:"F j, Y" }}
                                     </div>

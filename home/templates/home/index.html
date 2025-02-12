@@ -37,7 +37,8 @@
                         <div class="card-body">
                             <h2 class="card-title h5 mb-3">
                                 <a href="{% url 'post_detail' latest_post.post_slug %}" 
-                                    class="text-decoration-none text-dark">
+                                    class="text-decoration-none text-dark"
+                                    aria-label="Read latest blog post: {{ latest_post.post_title }}">
                                     {{ latest_post.post_title }}
                                 </a>
                             </h2>
@@ -52,9 +53,10 @@
                             </p>
                             <div class="button-container">
                                 <a href="{% url 'post_detail' latest_post.post_slug %}" 
-                                    class="btn btn-outline-primary btn-sm">
+                                    class="btn btn-outline-primary btn-sm"
+                                    aria-label="Read more about {{ latest_post.post_title }}">
                                     Read More
-                                    <i class="fas fa-arrow-right ms-1"></i>
+                                    <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -94,9 +96,10 @@
                             </div>
         
                             <div class="button-container">
-                                <a href="{% url 'work_detail' latest_product.id %}" class="btn btn-outline-primary btn-sm">
-                                    View Product
-                                    <i class="fas fa-arrow-right ms-1"></i>
+                                <a href="{% url 'work_detail' latest_product.id %}" class="btn btn-outline-primary btn-sm"
+                                   aria-label="View details of {{ latest_product.name }}">
+                                    View Details
+                                    <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>

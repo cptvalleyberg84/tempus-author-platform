@@ -6,7 +6,7 @@ from django.conf import settings
 def send_confirmation_email(order):
     """Send the user a confirmation email"""
     customer_email = order.email
-    subject = f'Order Confirmation - Order Number {order.id}'
+    subject = f'Tempus Author Platform - Order Confirmation #{order.id}'
 
     # Get order items for the email
     order_items = order.orderitem_set.all()

@@ -32,8 +32,8 @@
 
             <!-- Navigation -->
             <div class="mt-5 pt-3 border-top">
-                <a href="{% url 'blog' %}" class="btn btn-outline-primary">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Blog
+                <a href="{% url 'blog' %}" class="btn btn-outline-primary" aria-label="Return to blog listing">
+                    <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Blog
                 </a>
             </div>
 
@@ -51,7 +51,7 @@
                     </div>
                 {% else %}
                     <div class="alert alert-info">
-                        Please <a href="{% url 'account_login' %}?next={{ request.path }}">login</a> to leave a comment.
+                        Please <a href="{% url 'account_login' %}?next={{ request.path }}" aria-label="Login to leave a comment">login</a> to leave a comment.
                     </div>
                 {% endif %}
 
@@ -60,7 +60,7 @@
                 {% for comment in comments %}
                     <div class="comment mb-3 p-3 border rounded">
                         <div class="comment-meta small">
-                                <a href="{% url 'public_profile' comment.author.id %}">
+                                <a href="{% url 'public_profile' comment.author.id %}" aria-label="View {{ comment.author }}'s profile">
                                 {% if user.profile.profile_image %}
                                     <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
                                 {% else %}
@@ -72,8 +72,9 @@
                             {% if user == comment.author %}
                                 <div class="float-end">
                                     <a href="{% url 'comment_edit' post.post_slug comment.id %}" 
-                                       class="btn btn-sm btn-outline-secondary">
-                                        <i class="fas fa-edit"></i> Edit
+                                       class="btn btn-sm btn-outline-secondary"
+                                       aria-label="Edit your comment">
+                                        <i class="fas fa-edit" aria-hidden="true"></i> Edit
                                     </a>
                                     <button type="button" 
                                             class="btn btn-sm btn-outline-danger" 

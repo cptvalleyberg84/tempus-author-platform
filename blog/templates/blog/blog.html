@@ -32,7 +32,8 @@
                         <div class="card-body">
                             <h2 class="card-title h5 mb-3">
                                 <a href="{% url 'post_detail' post.post_slug %}" 
-                                   class="text-decoration-none text-dark">
+                                   class="text-decoration-none text-dark"
+                                   aria-label="Read full post: {{ post.post_title }}">
                                     {{ post.post_title }}
                                 </a>
                             </h2>
@@ -53,9 +54,10 @@
                             </p>
                             
                             <a href="{% url 'post_detail' post.post_slug %}" 
-                               class="btn btn-outline-primary btn-sm">
+                               class="btn btn-outline-primary btn-sm"
+                               aria-label="Read more about {{ post.post_title }}">
                                 Read More
-                                <i class="fas fa-arrow-right ms-1"></i>
+                                <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
                             </a>
                         </div>
                     </article>
@@ -68,8 +70,9 @@
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                                <i class="fas fa-chevron-left"></i>
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                               aria-label="Go to previous page">
+                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
                                 Previous
                             </a>
                         </li>
@@ -82,16 +85,18 @@
                             </li>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                <a class="page-link" href="?page={{ num }}"
+                                   aria-label="Go to page {{ num }}">{{ num }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
 
                     {% if page_obj.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                               aria-label="Go to next page">
                                 Next
-                                <i class="fas fa-chevron-right"></i>
+                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
                             </a>
                         </li>
                     {% endif %}

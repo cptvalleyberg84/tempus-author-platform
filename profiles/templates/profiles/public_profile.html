@@ -51,7 +51,7 @@
                                 <div class="comment-content">
                                     <p class="mb-1">{{ comment.content|truncatewords:50 }}</p>
                                     <div class="comment-meta small text-muted">
-                                        on post: <a href="{% url 'post_detail' comment.post.post_slug %}">{{ comment.post.post_title }}</a>
+                                        on post: <a href="{% url 'post_detail' comment.post.post_slug %}" aria-label="View post: {{ comment.post.post_title }}">{{ comment.post.post_title }}</a>
                                         <br>
                                         {{ comment.created_on|date:"F j, Y" }}
                                     </div>
