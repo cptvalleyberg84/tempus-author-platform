@@ -61,11 +61,7 @@
                     <div class="comment mb-3 p-3 border rounded">
                         <div class="comment-meta small">
                                 <a href="{% url 'public_profile' comment.author.id %}" aria-label="View {{ comment.author }}'s profile">
-                                {% if user.profile.profile_image %}
-                                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
-                                {% else %}
-                                    <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle nav-profile-image">
-                                {% endif %}
+                                <img src="{{ comment.author.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
                             <strong>{{ comment.author }}</strong></a> - 
                             {{ comment.created_on|date:"F j, Y" }}
                             

@@ -172,8 +172,8 @@
                                 {% for review in reviews %}
                                     <div class="review-card mb-3">
                                         <div class="d-flex align-items-center mb-2">
-                                            {% if user.profile.profile_image %}
-                                                <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
+                                            {% if review.user.profile %}
+                                                <img src="{{ review.user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
                                             {% else %}
                                                 <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle nav-profile-image">
                                             {% endif %}

@@ -62,23 +62,23 @@
     <header class="container-fluid fixed-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'home' %}">Tempus A.P.</a>
+                <a class="navbar-brand" href="{% url 'home' %}" aria-label="Go to Tempus Author Platform home page">Tempus A.P.</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'home' %}" aria-label="Home page">Home</a>
                         </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/works/' %}active{% endif %}" aria-current="page" href="{% url 'works' %}">Works</a>
+                        <a class="nav-link {% if request.path == '/works/' %}active{% endif %}" aria-current="page" href="{% url 'works' %}" aria-label="Browse works">Works</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" aria-current="page" href="{% url 'blog' %}">Blog</a>
+                        <a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" aria-current="page" href="{% url 'blog' %}" aria-label="Read our blog">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" aria-current="page" href="{% url 'about' %}">About</a>
+                        <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" aria-current="page" href="{% url 'about' %}" aria-label="About us">About</a>
                     </li>
                 </ul>
                 <!-- Search Form -->
@@ -95,12 +95,8 @@
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {% if user.profile.profile_image %}
-                                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
-                                {% else %}
-                                    <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle nav-profile-image">
-                                {% endif %}
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Your account menu">
+                                <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -111,10 +107,10 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                            <a class="nav-link" href="{% url 'account_signup' %}" aria-label="Create new account">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'account_login' %}" aria-label="Sign in to your account">Login</a>
                         </li>
                     {% endif %}
                     <!-- Bookcart Icon -->
@@ -216,10 +212,10 @@
                 <div class="col-12">
                     <hr>
                     <p class="text-center text-muted mb-0">
-                        © 2025 Tempus Author Platform. All rights reserved.
+                        &copy; 2025 Tempus Author Platform. All rights reserved.
                     <br>
                     <small>
-                        build by valleyberg©
+                        build by valleyberg &copy;
                     </small></p>
                 </div>
             </div>

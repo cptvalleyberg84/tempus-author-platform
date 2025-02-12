@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Product, Category
@@ -32,7 +31,7 @@ def all_works(request):
 def work_detail(request, work_id):
     """
     Display detailed information about a specific work.
-    
+
     Shows work details, approved reviews, and handles user-specific
     display logic for reviews and purchases.
     """
@@ -98,7 +97,7 @@ def add_to_bookcart(request, work_id):
 def adjust_bookcart(request, work_id):
     """
     Adjust the quantity of a work in the book cart.
-    
+
     If quantity is set to 0, the item is removed from the cart.
     """
     quantity = int(request.POST.get('quantity'))
@@ -116,24 +115,31 @@ def adjust_bookcart(request, work_id):
 def remove_from_bookcart(request, work_id):
     """
     Remove a work from the book cart.
+    Handles cases where the item might not exist in the cart.
     """
     try:
         bookcart = request.session.get('bookcart', {})
-        bookcart.pop(str(work_id))
-        request.session['bookcart'] = bookcart
-        messages.success(request, 'Item removed from the bookcart')
+        work_id = str(work_id)
+
+        if work_id in bookcart:
+            bookcart.pop(work_id)
+            request.session['bookcart'] = bookcart
+            messages.success(request, 'Item removed from the bookcart')
+        else:
+            messages.info(request, 'This item was not in your bookcart')
+
         return redirect(reverse('view_bookcart'))
 
     except Exception as e:
-        messages.error(request, f'Error removing item: {e}')
-        return HttpResponse(status=500)
+        messages.error(request, f'Error removing item from bookcart: {e}')
+        return redirect(reverse('view_bookcart'))
 
 
 @login_required
 def add_review(request, work_id):
     """
     Add a review for a purchased work.
-    
+
     Only allows reviews from users who have purchased the work.
     Reviews require approval before being displayed.
     """

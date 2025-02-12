@@ -58,7 +58,9 @@
                 <div class="row">
                     <div class="col-12 col-md-4">
                         <p class="small mb-0 font-weight-bold">
-                            {{ item.product.name }}
+                            <a href="{% url 'work_detail' item.product.id %}" class="text-decoration-none text-dark" aria-label="View details of {{ item.product.name }}">
+                                {{ item.product.name }}
+                            </a>
                         </p>
                     </div>
                     <div class="col-12 col-md-8 text-md-right">

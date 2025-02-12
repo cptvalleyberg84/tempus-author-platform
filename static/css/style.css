@@ -76,3 +76,21 @@ input, textarea {
 .nav-link.dropdown-toggle {
     padding: 0.5rem 1rem;
 }
+
+/* Update and Remove Links */
+.update-link,
+.remove-item {
+    cursor: pointer;
+    transition: color 0.3s ease;
+    border: 0;
+    background: transparent;
+    padding: 0;
+}
+
+.update-link:hover {
+    color: #0dcaf0 !important;
+}
+
+.remove-item:hover {
+    color: #dc3545 !important;
+}

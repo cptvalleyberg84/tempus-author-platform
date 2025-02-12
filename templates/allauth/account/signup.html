@@ -8,38 +8,38 @@
         {% trans "Sign Up" %}
     {% endelement %}
         <!-- Community Rules Section -->
-        <div class="card mb-4">
+        <div class="card mb-4" role="region" aria-label="Community Guidelines">
             <div class="card-header">
                 <h5 class="mb-0">Community Guidelines</h5>
             </div>
             <div class="card-body">
                 <p class="card-text">Before joining our community, please read and agree to our guidelines:</p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
+                <ul class="list-group list-group-flush" role="list">
+                    <li class="list-group-item" role="listitem">
+                        <i class="fas fa-check text-success me-2" aria-hidden="true"></i>
                         Be respectful and courteous to other members
                     </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
+                    <li class="list-group-item" role="listitem">
+                        <i class="fas fa-check text-success me-2" aria-hidden="true"></i>
                         Share authentic and original content
                     </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
+                    <li class="list-group-item" role="listitem">
+                        <i class="fas fa-check text-success me-2" aria-hidden="true"></i>
                         Protect your account information
                     </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-check text-success me-2"></i>
+                    <li class="list-group-item" role="listitem">
+                        <i class="fas fa-check text-success me-2" aria-hidden="true"></i>
                         Report any suspicious activity
                     </li>
                 </ul>
                 <p class="mt-3 text-muted small">
                     By creating an account, you agree to follow these guidelines and our 
-                    <a href="#" class="text-decoration-none">Terms of Service</a>.
+                    <a href="#" class="text-decoration-none" aria-label="Read Terms of Service">Terms of Service</a>.
                 </p>
             </div>
         </div>
     {% setvar link %}
-        <a href="{{ login_url }}">
+        <a href="{{ login_url }}" aria-label="Go to sign in page">
         {% endsetvar %}
         {% setvar end_link %}
         </a>
@@ -58,7 +58,7 @@
                 {{ redirect_field }}
             {% endslot %}
             {% slot actions %}
-                {% element button tags="prominent,signup" type="submit" %}
+                {% element button tags="prominent,signup" type="submit" aria-label="Create your account" %}
                     {% trans "Sign Up" %}
                 {% endelement %}
             {% endslot %}
@@ -68,7 +68,7 @@
     {% if PASSKEY_SIGNUP_ENABLED %}
         {% element hr %}
         {% endelement %}
-        {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
+        {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" aria-label="Sign up using a passkey" %}
             {% trans "Sign up using a passkey" %}
         {% endelement %}
     {% endif %}
