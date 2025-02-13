@@ -1,0 +1,70 @@
+/* Signup button styling */
+.signup-button-wrapper button {
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+    padding: 0.75rem 2.5rem;
+    border-radius: 25px;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    border-color: #fff;
+    color: #000;
+    width: 100%;
+}
+
+.signup-button-wrapper button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    background-color: #f8f9fa;
+}
+
+/* Newsletter box styling */
+.newsletter-box {
+    transition: background-color 0.3s ease;
+    background-color: rgba(33, 37, 41, 0.8);
+}
+
+.newsletter-box:hover {
+    background-color: rgba(33, 37, 41, 0.95);
+}
+
+.newsletter-box .form-check-label {
+    color: #fff;
+}
+
+/* Privacy Policy Modal styling */
+#privacyModal .modal-content {
+    background-color: #f8f9fa;
+    color: black;
+}
+
+#privacyModal .modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Privacy checkbox styling */
+#privacyCheck:required:invalid + label {
+    color: #dc3545;
+}
+
+#privacyCheck:required:valid + label {
+    color: inherit;
+}
+
+/* Make modal scrollbar more visible */
+#privacyModal .modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#privacyModal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#privacyModal .modal-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+#privacyModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
