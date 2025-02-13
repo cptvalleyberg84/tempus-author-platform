@@ -8,9 +8,6 @@
 {% block content %}
     <div class="block container">
         <div class="row">
-        <div class="col-12">
-            <p>Welcome to the Tempus Author Platform.</p>
-        </div>
 
         <!-- Carousel Items Section -->
         {% include 'home/includes/carousel.html' %}
@@ -37,7 +34,7 @@
                         <div class="card-body">
                             <h2 class="card-title h5 mb-3">
                                 <a href="{% url 'post_detail' latest_post.post_slug %}" 
-                                    class="text-decoration-none text-dark"
+                                    class="text-decoration-none blog-link"
                                     aria-label="Read latest blog post: {{ latest_post.post_title }}">
                                     {{ latest_post.post_title }}
                                 </a>
@@ -85,7 +82,13 @@
                         </div>
                         
                         <div class="card-body">
-                            <h5 class="card-title">{{ latest_product.name }}</h5>
+                            <h3 class="card-title h5">
+                                <a href="{% url 'work_detail' latest_product.id %}" 
+                                class="text-decoration-none blog-link"
+                                aria-label="Read latest blog post: {{ latest_product.name }}">
+                                    {{ latest_product.name }}
+                                </a>
+                            </h3>
                             <p class="card-text">{{ latest_product.description|truncatewords:25 }}</p>
                             
                             <div class="d-flex justify-content-between align-items-center mb-2">

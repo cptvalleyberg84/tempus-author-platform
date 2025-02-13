@@ -9,14 +9,17 @@
 }
 
 .work-image-container {
-    height: 450px;
+    height: 300px;
     overflow: hidden;
     background-color: #f8f9fa;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .work-image-container img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: cover;
 }

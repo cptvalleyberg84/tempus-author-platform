@@ -31,13 +31,14 @@
         {% endfor %}
     </div>
     
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-3">
+    <!-- Work Cards -->
+    <div class="row g-4">
         {% for work in works %}
-            <div class="col">
+            <div class="col-md-4 mb-4">
                 <div class="card work-card h-100">
-                    <div class="work-image-container">
+                    <div class="work-image-container bg-black bg-opacity-75 p-2 rounded">
                         {% if work.image %}
-                            <img src="{{ work.image.url }}" class="card-img-top img-fluid" alt="{{ work.name }}">
+                            <img src="{{ work.image.url }}" class="card-img-top img-fluid rounded" alt="{{ work.name }}">
                         {% else %}
                             <img src="{% static 'images/noimage.png' %}" class="card-img-top img-fluid" alt="{{ work.name }}">
                         {% endif %}

@@ -54,7 +54,7 @@
                             </p>
                             
                             <a href="{% url 'post_detail' post.post_slug %}" 
-                               class="btn btn-outline-primary btn-sm"
+                               class="btn btn-primary"
                                aria-label="Read more about {{ post.post_title }}">
                                 Read More
                                 <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
@@ -111,8 +111,4 @@
         </div>
     {% endif %}
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'blog/js/blog.js' %}"></script>
 {% endblock %}

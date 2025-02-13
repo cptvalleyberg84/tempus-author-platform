@@ -44,7 +44,7 @@
 }
 
 .blog-meta a:hover {
-    color: #0d6efd !important;
+    color: #a9b32b;
 }
 
 .pagination .page-link {
@@ -52,27 +52,10 @@
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #0d6efd;
+    background-color: #ffffff;
     border-color: #0d6efd;
 }
 
 .blog-card a {
     transition: color 0.2s ease-in-out;
-}
-
-.blog-card a:hover {
-    color: #0d6efd !important;
-}
-
-.author-profile-image {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #fff;
-}
-
-.author-profile-image:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease;
 }
