@@ -298,6 +298,7 @@ CSP_SCRIPT_SRC = [
 CSP_IMG_SRC = [
     "'self'",
     "*.amazonaws.com",
+    "https://*.amazonaws.com",
     "data:",
     "blob:",
 ]

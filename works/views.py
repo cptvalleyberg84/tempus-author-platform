@@ -165,7 +165,15 @@ def add_review(request, work_id):
             review.product = work
             review.user = request.user
             review.save()
-            messages.success(
-                request, 'Review has been submitted for approval. Thank you!'
-            )
+            
+            if not form.cleaned_data.get('comment'):
+                messages.info(
+                    request,
+                    'Thanks for your rating! Feel free to come back and add a written review anytime - '
+                    'your experience could help other readers make their decision.'
+                )
+            else:
+                messages.success(
+                    request, 'Thank you for your detailed review! It has been submitted for approval.'
+                )
     return redirect('work_detail', work_id)

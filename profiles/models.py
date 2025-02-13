@@ -6,6 +6,14 @@ from django_countries.fields import CountryField
 from django.core.validators import RegexValidator
 
 
+def profile_image_path(instance, filename):
+    """
+    Generate the upload path for profile images.
+    This ensures consistent paths between development and production.
+    """
+    return f'media/profile_images/{filename}'
+
+
 class UserProfile(models.Model):
     """
     User profile model for storing user-specific information.
@@ -23,10 +31,10 @@ class UserProfile(models.Model):
         message='Postcode must be 4-6 characters. Only letters and numbers'
     )
     profile_image = models.ImageField(
-        upload_to='profile_images',
+        upload_to=profile_image_path,
         null=True,
         blank=True,
-        default='profile_images/default.jpg',
+        default='media/profile_images/default.jpg',
     )
 
     profile_bio = models.TextField(max_length=500, blank=True)
