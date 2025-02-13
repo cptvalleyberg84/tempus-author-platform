@@ -11,7 +11,7 @@ def profile_image_path(instance, filename):
     Generate the upload path for profile images.
     This ensures consistent paths between development and production.
     """
-    return f'media/profile_images/{filename}'
+    return f'profile_images/{filename}'
 
 
 class UserProfile(models.Model):
@@ -34,7 +34,7 @@ class UserProfile(models.Model):
         upload_to=profile_image_path,
         null=True,
         blank=True,
-        default='media/profile_images/default.jpg',
+        default='profile_images/default.jpg',
     )
 
     profile_bio = models.TextField(max_length=500, blank=True)

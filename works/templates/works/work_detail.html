@@ -181,9 +181,13 @@
                                     <div class="review-card mb-3">
                                         <div class="d-flex align-items-center mb-2">
                                             {% if review.user.profile %}
-                                                <img src="{{ review.user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
+                                                {% if review.user.profile.profile_image %}
+                                                    <img src="{{ review.user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
+                                                {% else %}
+                                                    <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle nav-profile-image">
+                                                {% endif %}
                                             {% else %}
-                                                <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle nav-profile-image">
+                                                <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Img" class="rounded-circle nav-profile-image">
                                             {% endif %}
                                             <strong>{{ review.user.username }}</strong>
                                             <div class="rating">

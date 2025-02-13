@@ -231,8 +231,18 @@ if USE_AWS:
 
     # Tell Django to use S3 for storage
     STORAGES = {
-        "default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
-        "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {
+                "location": "media"
+            }
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {
+                "location": "static"
+            }
+        }
     }
 
     # Override static and media URLs in production
