@@ -141,14 +141,19 @@
 /* Small mobile devices */
 @media (max-width: 576px) {
     .carousel-title {
-        font-size: 1.4rem;
-    }
-
-    .carousel-subtitle {
         font-size: 1.2rem;
     }
 
-    .carousel-description {
-        font-size: 0.9rem;
+    .carousel-subtitle {
+        font-size: 1.0rem;
     }
+
+    .carousel-description {
+        font-size: 0.7rem;
+    }
+}
+
+h2.carousel-title {
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }

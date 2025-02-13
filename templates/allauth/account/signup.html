@@ -56,6 +56,17 @@
                 {% element fields form=form unlabeled=True %}
                 {% endelement %}
                 {{ redirect_field }}
+                
+                <!-- Newsletter Signup -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="newsletterSignup" name="newsletter_signup" unchecked
+                               data-form-url="{{ settings.GOOGLE_FORM_URL }}">
+                        <label class="form-check-label" for="newsletterSignup">
+                            Sign up to our author's mailing list to receive updates and exclusive content
+                        </label>
+                    </div>
+                </div>
             {% endslot %}
             {% slot actions %}
                 {% element button tags="prominent,signup" type="submit" %}
@@ -76,3 +87,8 @@
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
 {% endblock inner_content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "signup_script.js" %}
+{% endblock %}

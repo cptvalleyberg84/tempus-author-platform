@@ -340,6 +340,10 @@ CSP_FRAME_SRC = [
 ]
 CSP_INCLUDE_NONCE_IN = ['script-src']
 
+# Google Apps Script URL for newsletter signup
+GOOGLE_FORM_URL = 'https://script.google.com/macros/s/AKfycbz0I6ZsUwXJLXXLysTyD7NCyt2ZWvw4fF2zyVcok3Rf0ciaVaSkgbZRuB9Yee0a5BNYpA/exec'
+GOOGLE_FORM_URL = os.environ.get('GOOGLE_FORM_URL')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Database Configuration
