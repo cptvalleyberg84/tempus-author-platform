@@ -64,9 +64,25 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}" aria-label="Go to Tempus Author Platform home page">Tempus A.P.</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                
+                <div class="d-flex align-items-center">
+                    <!-- Bookcart Icon - visible only on mobile -->
+                    <div class="d-lg-none me-2">
+                        <a href="{% url 'view_bookcart' %}" class="nav-link position-relative" aria-label="View your library items">
+                            <i class="fas fa-book-reader fs-5" aria-hidden="true"></i>
+                            {% if product_count %}
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="transform: translate(-50%, -25%);">
+                                    {{ product_count }}
+                                    <span class="visually-hidden">items in library</span>
+                                </span>
+                            {% endif %}
+                        </a>
+                    </div>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -123,7 +139,7 @@
                         </li>
                     {% endif %}
                     <!-- Bookcart Icon -->
-                    <li class="nav-item">
+                    <li class="nav-item d-none d-lg-block">
                         <a class="nav-link position-relative" href="{% url 'view_bookcart' %}" aria-label="View your library items">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-book-reader" aria-hidden="true"></i>
