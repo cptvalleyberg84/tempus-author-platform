@@ -95,3 +95,7 @@ input, textarea {
     color: #dc3545 !important;
 }
 
+/* Quantity Input Group */
+.quantity-input-group {
+    max-width: 115px;
+}

@@ -111,21 +111,7 @@
                                     <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Log out of account"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
                                 </ul>
                             </li>
-                            <!-- Bookcart Icon -->
-                            <li class="nav-item">
-                                <a class="nav-link position-relative" href="{% url 'view_bookcart' %}" aria-label="View your library items">
-                                    <div class="d-flex align-items-center">
-                                        <i class="fas fa-book-reader" aria-hidden="true"></i>
-                                        <!-- Bookcart Badge -->
-                                        {% if product_count %}
-                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                                                {{ product_count }}
-                                                <span class="visually-hidden">items in library</span>
-                                            </span>
-                                        {% endif %}
-                                    </div>
-                                </a>
-                            </li>
+                            
                             
                         </div>
                     {% else %}
@@ -136,6 +122,21 @@
                             <a class="nav-link" href="{% url 'account_login' %}" aria-label="Sign in to your account">Login</a>
                         </li>
                     {% endif %}
+                    <!-- Bookcart Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="{% url 'view_bookcart' %}" aria-label="View your library items">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-book-reader" aria-hidden="true"></i>
+                                <!-- Bookcart Badge -->
+                                {% if product_count %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                        {{ product_count }}
+                                        <span class="visually-hidden">items in library</span>
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

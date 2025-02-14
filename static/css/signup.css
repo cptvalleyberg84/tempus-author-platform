@@ -24,11 +24,12 @@
 }
 
 .newsletter-box:hover {
-    background-color: rgba(33, 37, 41, 0.95);
+    background-color: rgba(49, 128, 207, 0.95);
 }
 
 .newsletter-box .form-check-label {
     color: #fff;
+    cursor: pointer;
 }
 
 /* Privacy Policy Modal styling */
