@@ -55,3 +55,18 @@ h3 {
     transform: translateY(-10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
+.work-image-container {
+    overflow: hidden;
+    background-color: #f8f9fa;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.work-image-container img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+}

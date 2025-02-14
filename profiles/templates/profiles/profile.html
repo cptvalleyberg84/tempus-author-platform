@@ -18,22 +18,29 @@
     </div>    
     <div class="row">
         <div class="col-12 col-lg-4">
-            <div class="profile-image-container text-center mb-4">
+            <div class="text-center mb-4">
+                <label for="id_profile_image">
+                    <h4 class="mb-3">Profile Picture</h4>
+                    <div class="profile-image-container">
                 {% if user.profile.profile_image %}
                     <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle profile-image">
                 {% else %}
                     <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle profile-image">
                 {% endif %}
+                    </label>
+                </div>
+                <p class="mt-2">User: {{ user.username }}</p>
+                <small>Click image to change your profile picture</small>
             </div>
         </div>
         <div class="col-12 col-lg-4">
-            <p>User and Default Billing Information</p>
+            <h4 class="mb-3">Profile Information</h4>
             <div class="profile-form-container">
                 <form action="{% url 'profile' %}" method="POST" id="profile-update-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button class="btn btn-primary rounded-0">
-                        Update Information
+                    <button class="btn btn-primary rounded-0 mt-3">
+                        Update Profile
                     </button>
                 </form>
             </div>
