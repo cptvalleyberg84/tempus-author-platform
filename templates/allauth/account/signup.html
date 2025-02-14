@@ -83,8 +83,8 @@
                             <!-- Newsletter Signup -->
                             <div class="mb-4 mt-4">
                                 <div class="form-check p-3 bg-dark rounded border border-primary border-opacity-25 newsletter-box text-white">
-                                    <input type="checkbox" class="form-check-input" id="newsletterSignup" name="newsletter_signup" unchecked
-                                           data-form-url="{{ settings.GOOGLE_FORM_URL }}">
+                                    <input type="checkbox" class="form-check-input" id="newsletterSignup" name="newsletter_signup"
+                                           data-form-url="{{ GOOGLE_FORM_URL }}" data-email-field="input[name='email']">
                                     <label class="form-check-label fw-semibold" for="newsletterSignup">
                                         <i class="fas fa-envelope-open-text me-2 text-primary"></i>
                                         Sign up to the TEMPUS mailing list to receive updates and exclusive content (optional)

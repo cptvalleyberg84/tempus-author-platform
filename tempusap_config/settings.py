@@ -121,6 +121,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'works.context_processors.bookcart_contents',
+                'tempusap_config.context_processors.google_form_url',
             ],
         },
     },
@@ -260,7 +261,13 @@ else:
     }
 
 # Content Security Policy
-CSP_DEFAULT_SRC = ["'self'", "*.amazonaws.com"]
+CSP_DEFAULT_SRC = [
+    "'self'",
+    "https://script.google.com",
+    "https://*.google.com",
+    "https://*.googleusercontent.com",
+    "*.amazonaws.com"
+]
 CSP_STYLE_SRC = [
     "'self'",
     "'unsafe-inline'",
@@ -333,15 +340,20 @@ CSP_FONT_SRC = [
 CSP_CONNECT_SRC = [
     "'self'",
     "*.stripe.com",
+    "https://script.google.com",
+    "https://*.google.com",
+    "https://*.googleusercontent.com",
 ]
 CSP_FRAME_SRC = [
     "'self'",
     "*.stripe.com",
+    "https://script.google.com",
+    "https://*.google.com",
+    "https://*.googleusercontent.com",
 ]
 CSP_INCLUDE_NONCE_IN = ['script-src']
 
 # Google Apps Script URL for newsletter signup
-GOOGLE_FORM_URL = 'https://script.google.com/macros/s/AKfycbz0I6ZsUwXJLXXLysTyD7NCyt2ZWvw4fF2zyVcok3Rf0ciaVaSkgbZRuB9Yee0a5BNYpA/exec'
 GOOGLE_FORM_URL = os.environ.get('GOOGLE_FORM_URL')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
