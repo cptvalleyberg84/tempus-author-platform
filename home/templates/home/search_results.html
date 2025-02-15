@@ -29,7 +29,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% for work in works %}
                 <div class="col">
-                    <div class="card h-100">
+                    <div class="image-container card work-search-card-img h-100">
                         {% if work.image %}
                             <img src="{{ work.image.url }}" class="card-img-top img-fluid" alt="{{ work.name }}">
                         {% else %}
@@ -63,15 +63,21 @@
         <div class="row">
             {% for post in blog_posts %}
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100 rounded">
+                        <div class="image-wrapper bg-black rounded">
                         {% if post.post_featured_image %}
-                            <img src="{{ post.post_featured_image.url }}" class="card-img-top" alt="{{ post.post_title }}">
+                        <div class="bg-black">
+                            <img src="{{ post.post_featured_image.url }}" class="card-img-top img-fluid" alt="{{ post.post_title }}">
+                        </div>
+                        {% else %}
+                            <img src="{% static 'images/noimage.png' %}" class="card-img-top img-fluid" alt="{{ pospt.post_title }}">
                         {% endif %}
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ post.post_title|highlight_yellow:search_term|safe }}</h5>
                             <p class="card-text">{{ post.post_content|smart_truncate:search_term|safe|truncatewords:30|highlight_yellow:search_term }}</p>
                             <a href="{% url 'post_detail' post.post_slug %}" 
-                               class="btn btn-primary"
+                               class="btn btn-primary mt-auto"
                                aria-label="Read more about {{ post.post_title }}">
                                 Read More
                             </a>

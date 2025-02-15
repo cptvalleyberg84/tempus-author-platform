@@ -9,43 +9,133 @@
 
 <url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/works/bookcart/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/works/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/blog/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/about/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/signup/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://tempusap-74bb3112eef0.herokuapp.com/works/bookcart/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/blog/welcome-to-the-tempus-author-platform/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/works/5/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/blog/edward-teslenstein-tempus-the-gravity-speed-engine/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/works/6/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/works/?category=ebooks</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/blog/the-genesis-of-a-vision-20-years-of-crafting-the-age-of-new-era/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
   <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/password/reset/</loc>
-  <lastmod>2025-02-11T13:43:43+00:00</lastmod>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
   <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/?next=/blog/welcome-to-the-tempus-author-platform/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/profile/user/1/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/profile/user/3/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/?next=/blog/edward-teslenstein-tempus-the-gravity-speed-engine/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/?next=/blog/the-genesis-of-a-vision-20-years-of-crafting-the-age-of-new-era/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/profile/user/21/</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/signup/?next=%2Fblog%2Fwelcome-to-the-tempus-author-platform%2F</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/signup/?next=%2Fblog%2Fedward-teslenstein-tempus-the-gravity-speed-engine%2F</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/signup/?next=%2Fblog%2Fthe-genesis-of-a-vision-20-years-of-crafting-the-age-of-new-era%2F</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/?next=%2Fblog%2Fwelcome-to-the-tempus-author-platform%2F</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/?next=%2Fblog%2Fedward-teslenstein-tempus-the-gravity-speed-engine%2F</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://tempusap-74bb3112eef0.herokuapp.com/accounts/login/?next=%2Fblog%2Fthe-genesis-of-a-vision-20-years-of-crafting-the-age-of-new-era%2F</loc>
+  <lastmod>2025-02-15T18:00:29+00:00</lastmod>
+  <priority>0.33</priority>
 </url>
 
 
