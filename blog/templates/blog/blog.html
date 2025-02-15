@@ -17,7 +17,10 @@
             {% for post in posts %}
                 <div class="col-md-6 col-lg-4">
                     <article class="card blog-card h-100">
-                        <div class="blog-image-container">
+                        <a href="{% url 'post_detail' post.post_slug %}" 
+                                   class="text-decoration-none text-dark"
+                                   aria-label="Read full post: {{ post.post_title }}">
+                        <div class="blog-image-container bg-black rounded">
                             {% if post.post_featured_image %}
                                 <img src="{{ post.post_featured_image.url }}" 
                                      alt="{{ post.post_title }}" 
@@ -31,9 +34,7 @@
                         
                         <div class="card-body">
                             <h2 class="card-title h5 mb-3">
-                                <a href="{% url 'post_detail' post.post_slug %}" 
-                                   class="text-decoration-none text-dark"
-                                   aria-label="Read full post: {{ post.post_title }}">
+                                
                                     {{ post.post_title }}
                                 </a>
                             </h2>

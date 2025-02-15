@@ -11,12 +11,13 @@
 .blog-image-container {
     height: 200px;
     overflow: hidden;
-    background-color: #f8f9fa;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .blog-image-container img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: cover;
 }

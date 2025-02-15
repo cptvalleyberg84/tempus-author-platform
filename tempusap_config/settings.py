@@ -36,7 +36,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
-DEBUG = 'DEVELOPMENT' in os.environ
+# DEBUG = 'DEVELOPMENT' in os.environ
+DEBUG = os.environ.get('DEBUG', 'False') == 'True' or 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -153,6 +154,9 @@ else:
     EMAIL_USE_TLS = True
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+    EMAIL_TIMEOUT = 3
+    EMAIL_USE_SSL = False
 
 # Allauth settings
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'

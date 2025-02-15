@@ -49,10 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'Accept': 'application/json'
                     },
-                    body: formData
+                    body: formData,
+                    // Add timeout to prevent hanging
+                    signal: AbortSignal.timeout(3000) // 3 second timeout
                 });
 
-                const responseData = await response.json();
                 if (!response.ok) {
                     throw new Error('Newsletter subscription failed');
                 }
@@ -63,13 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             } catch (error) {
                 console.error('Newsletter subscription failed:', error);
+                // Continue with form submission even if newsletter fails
             } finally {
                 // Hide spinner
                 spinner.classList.add('d-none');
+                // Submit the form programmatically to continue with Django signup
+                signupForm.removeEventListener('submit', arguments.callee);
+                signupForm.submit();
             }
-
-            // Submit the form programmatically to continue with Django signup
-            signupForm.submit();
         }
     });
 });

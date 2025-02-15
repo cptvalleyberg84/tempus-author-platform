@@ -20,7 +20,7 @@
                 {% if latest_post %}
                 <div class="col-md-4">
                     <article class="card h-100 update-card">
-                        <div class="image-container">
+                        <div class="image-container blog-image-container bg-black p-2 rounded">
                             {% if latest_post.post_featured_image %}
                                 <img src="{{ latest_post.post_featured_image.url }}" 
                                     alt="{{ latest_post.post_title }}" 
@@ -65,7 +65,7 @@
                 {% if latest_product %}
                 <div class="col-md-4">
                     <div class="card h-100 update-card">
-                        <div class="image-container work-image-container bg-black bg-opacity-75 p-2 rounded">
+                        <div class="image-container work-image-container rounded">
                             {% if latest_product.image %}
                                 <img src="{{ latest_product.image.url }}" 
                                     class="card-img-top img-fluid" 

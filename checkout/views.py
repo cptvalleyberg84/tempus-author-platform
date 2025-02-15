@@ -22,6 +22,13 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
+    if not request.user.is_authenticated:
+        messages.info(
+            request,
+            'You are not logged in. To leave a review after purchasing an ebook,'
+            ' please register or log in first.'
+        )
+
     if request.method == 'POST':
         bookcart = request.session.get(
             'bookcart', {}

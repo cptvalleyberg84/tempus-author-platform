@@ -67,6 +67,21 @@ h3 {
 
 .work-image-container img {
     width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.blog-image-container {
+    overflow: hidden;
+    background-color: #f8f9fa;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blog-image-container img {
+    width: auto;
     height: 100%;
     object-fit: cover;
 }

@@ -11,8 +11,6 @@
 .work-image-container {
     height: 300px;
     overflow: hidden;
-    background-color: #f8f9fa;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;

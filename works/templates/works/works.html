@@ -36,7 +36,7 @@
         {% for work in works %}
             <div class="col-md-4 mb-4">
                 <div class="card work-card h-100">
-                    <div class="work-image-container bg-black bg-opacity-75 p-2 rounded">
+                    <div class="work-image-container bg-black rounded">
                         {% if work.image %}
                             <img src="{{ work.image.url }}" class="card-img-top img-fluid rounded" alt="{{ work.name }}">
                         {% else %}
