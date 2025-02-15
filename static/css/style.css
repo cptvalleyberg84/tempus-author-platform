@@ -99,3 +99,15 @@ input, textarea {
 .quantity-input-group {
     max-width: 115px;
 }
+
+/* Remove spinner arrows from number inputs in cart */
+.qty_input::-webkit-outer-spin-button,
+.qty_input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.qty_input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
