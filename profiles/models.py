@@ -17,7 +17,7 @@ def profile_image_path(instance, filename):
 class UserProfile(models.Model):
     """
     User profile model for storing user-specific information.
-    
+
     Maintains user's personal details, delivery information,
     and profile settings.
     """
@@ -75,7 +75,7 @@ class UserProfile(models.Model):
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
     Signal handler to create or update user profile when User model is saved.
-    
+
     Creates a new UserProfile instance for new users and ensures
     profile is saved for existing users.
     """

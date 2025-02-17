@@ -82,7 +82,8 @@ class Order(models.Model):
         """
         String representation of the Order model.
         """
-        return f'Order {self.id} - {self.user.username}'
+        username = self.user.username if self.user else 'Guest'
+        return f'Order {self.id} - {username}'
 
     class Meta:
         """
@@ -128,4 +129,6 @@ class OrderItem(models.Model):
         """
         String representation of the OrderItem model.
         """
-        return f'{self.quantity} x {self.product.name} on order {self.order.id}'
+        return (
+            f'{self.quantity} x {self.product.name} on order {self.order.id}'
+        )

@@ -9,7 +9,7 @@ class CollaborationRequestAdmin(admin.ModelAdmin):
     """
 
     list_display = (
-        'name', 'email', 'collaboration_type', 'status', 
+        'name', 'email', 'collaboration_type', 'status',
         'is_read', 'created_at'
     )
     list_filter = ('collaboration_type', 'status', 'is_read', 'created_at')

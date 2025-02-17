@@ -17,15 +17,13 @@
     <div class="text-center mb-4">
         <a href="{% url 'works' %}" 
            class="btn {% if not current_category %}btn-primary{% else %}btn-outline-primary{% endif %} me-2"
-           aria-label="View all works"
-           aria-current="{% if not current_category %}page{% endif %}">
+           aria-label="View all works">
             All
         </a>
         {% for category in categories %}
             <a href="{% url 'works' %}?category={{ category.name }}" 
                class="btn {% if current_category == category.name %}btn-primary{% else %}btn-outline-primary{% endif %} me-2"
-               aria-label="View works in category {{ category.friendly_name }}"
-               aria-current="{% if current_category == category.name %}page{% endif %}">
+               aria-label="View works in category {{ category.friendly_name }}">
                 {{ category.friendly_name }}
             </a>
         {% endfor %}

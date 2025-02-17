@@ -66,7 +66,7 @@ class Product(models.Model):
 class Review(models.Model):
     """
     Model representing user reviews for products.
-    
+
     Each user can only submit one review per product.
     Reviews must be approved before being displayed.
     """

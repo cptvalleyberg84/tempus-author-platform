@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.utils.text import slugify
 from .models import Post, Comment
 
 
@@ -14,7 +13,7 @@ class TestPostModel(TestCase):
             password='testpass123',
             is_staff=True
         )
-        
+
         # Create a test post
         self.post = Post.objects.create(
             post_title='Test Post',
@@ -70,14 +69,14 @@ class TestCommentModel(TestCase):
             password='testpass123',
             is_staff=True
         )
-        
+
         # Create a regular user (commenter)
         self.regular_user = User.objects.create_user(
             username='testuser',
             email='user@example.com',
             password='testpass123'
         )
-        
+
         # Create a test post
         self.post = Post.objects.create(
             post_title='Test Post',
@@ -86,7 +85,7 @@ class TestCommentModel(TestCase):
             post_content='This is a test post content.',
             post_status=1
         )
-        
+
         # Create a test comment
         self.comment = Comment.objects.create(
             post=self.post,

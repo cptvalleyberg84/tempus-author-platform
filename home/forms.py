@@ -14,7 +14,8 @@ class CarouselItemAdminForm(forms.ModelForm):
 
     def clean(self):
         """
-        Validate that the appropriate link type is provided based on the selected style.
+        Validate that the appropriate link type is provided'
+        ' based on the selected style.
         """
         cleaned_data = super().clean()
         style = cleaned_data.get('style')

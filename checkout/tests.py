@@ -5,6 +5,7 @@ from works.models import Product
 from profiles.models import UserProfile
 from decimal import Decimal
 
+
 class TestOrderModel(TestCase):
     def setUp(self):
         # Create a test user
@@ -13,17 +14,17 @@ class TestOrderModel(TestCase):
             email='test@example.com',
             password='testpass123'
         )
-        
+
         # Create a user profile
         self.profile = UserProfile.objects.get(user=self.user)
-        
+
         # Create a test product
         self.product = Product.objects.create(
             name='Test Book',
             description='A test book description',
             price=Decimal('29.99')
         )
-        
+
         # Create a basic order
         self.order = Order.objects.create(
             user=self.user,
@@ -58,10 +59,10 @@ class TestOrderModel(TestCase):
             quantity=1,
             price=self.product.price
         )
-        
+
         # Update total
         self.order.update_total()
-        
+
         # Expected total: (2 * 29.99) + (1 * 29.99) = 89.97
         expected_total = Decimal('89.97')
         self.assertEqual(self.order.total_amount, expected_total)
@@ -74,7 +75,7 @@ class TestOrderModel(TestCase):
             quantity=1,
             price=self.product.price
         )
-        
+
         self.assertEqual(order_item.order, self.order)
         self.assertEqual(order_item.quantity, 1)
         self.assertEqual(order_item.price, self.product.price)
@@ -83,7 +84,7 @@ class TestOrderModel(TestCase):
         """Test that payment status can be updated"""
         self.order.payment_status = 'paid'
         self.order.save()
-        
+
         # Refresh from database
         updated_order = Order.objects.get(id=self.order.id)
         self.assertEqual(updated_order.payment_status, 'paid')

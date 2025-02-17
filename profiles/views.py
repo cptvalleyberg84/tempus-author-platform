@@ -11,7 +11,7 @@ from blog.models import Comment
 def profile(request):
     """
     Display and handle updates to the user's private profile.
-    
+
     Shows user's profile information, latest comments, and order history.
     Handles profile updates through POST requests.
     """
@@ -30,7 +30,9 @@ def profile(request):
             messages.success(request, 'Profile updated successfully')
             return redirect('profile')
         else:
-            messages.error(request, 'Update failed. Please ensure the form is valid.')
+            messages.error(
+                request, 'Update failed. Please ensure the form is valid.'
+            )
     else:
         form = UserProfileForm(instance=profile)
 
@@ -54,9 +56,10 @@ def profile(request):
 def public_profile(request, user_id):
     """
     Display a user's public profile.
-    
-    Shows limited profile information and latest comments visible to other users.
-    Redirects to private profile if user views their own public profile.
+
+    Shows limited profile information and latest comments visible to other
+    users. Redirects to private profile if user views
+    their own public profile.
     """
     profile = get_object_or_404(UserProfile, user__id=user_id)
 
@@ -80,7 +83,7 @@ def public_profile(request, user_id):
 def order_history(request, order_id):
     """
     Display details of a specific past order.
-    
+
     Shows the order confirmation page with a message indicating
     this is a past order view.
     """

@@ -19,16 +19,16 @@
     <div class="row">
         <div class="col-12 col-lg-4">
             <div class="text-center mb-4">
-                <label for="id_profile_image">
-                    <h4 class="mb-3">Profile Picture</h4>
+                <h4 class="mb-3">Profile Picture</h4>
                     <div class="profile-image-container">
-                {% if user.profile.profile_image %}
-                    <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle profile-image">
-                {% else %}
-                    <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle profile-image">
-                {% endif %}
-                    </label>
-                </div>
+                        <label for="id_profile_image">
+                            {% if user.profile.profile_image %}
+                                <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle profile-image">
+                            {% else %}
+                                <img src="{{ MEDIA_URL }}profile_images/default.jpg" alt="Default Profile Image" class="rounded-circle profile-image">
+                            {% endif %}
+                        </label>
+                    </div>
                 <p class="mt-2">User: {{ user.username }}</p>
                 <small>Click image to change your profile picture</small>
             </div>

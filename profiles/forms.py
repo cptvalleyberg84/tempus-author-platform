@@ -9,7 +9,7 @@ import re
 class UserProfileForm(forms.ModelForm):
     """
     Form for managing user profile information.
-    
+
     Handles validation and cleaning of profile data including email,
     phone number, address details, and profile image.
     """
@@ -137,7 +137,7 @@ class UserProfileForm(forms.ModelForm):
 class PublicProfileForm(forms.ModelForm):
     """
     Form for displaying read-only public profile information.
-    
+
     Shows limited profile fields with all inputs disabled.
     """
     class Meta:

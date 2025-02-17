@@ -94,7 +94,8 @@ class CarouselItem(models.Model):
 
     def is_visible(self):
         """
-        Check if the carousel item should be visible based on dates and active status.
+        Check if the carousel item should be visible based'
+        ' on dates and active status.
         """
         now = timezone.now()
         return (

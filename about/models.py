@@ -7,8 +7,8 @@ class CollaborationRequest(models.Model):
     Model representing collaboration requests from users.
 
     This model stores and manages collaboration requests submitted through the
-    about page form. It includes various types of collaboration requests such as
-    project collaborations, mentorship, business opportunities, etc.
+    about page form. It includes various types of collaboration requests such
+    as project collaborations, mentorship, business opportunities, etc.
     """
 
     STATUS_CHOICES = [

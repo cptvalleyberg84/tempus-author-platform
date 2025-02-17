@@ -29,12 +29,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon/favicon.svg' %}" />
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}" />
-    <meta name="apple-mobile-web-app-title" content="TEMPUS A.P." />
-    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon/favicon.svg' %}">
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <meta name="apple-mobile-web-app-title" content="TEMPUS A.P.">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
 
     {% block extra_css %}
     {% endblock %}
@@ -50,7 +50,7 @@
 
     <!-- Stripe JS -->
     <script src="https://js.stripe.com/v3/" data-cookiepartitioned="true"></script>
-    <meta http-equiv="permissions-policy" content="payment=*">
+    <meta name="permissions-policy" content="payment=*">
 
     {% block extra_js %}
     {% endblock %}
@@ -88,16 +88,16 @@
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'home' %}" aria-label="Home page">Home</a>
                         </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/works/' %}active{% endif %}" aria-current="page" href="{% url 'works' %}" aria-label="Browse works">Works</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" aria-current="page" href="{% url 'blog' %}" aria-label="Read our blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" aria-current="page" href="{% url 'about' %}" aria-label="About us">About</a>
-                    </li>
-                </ul>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/works/' %}active{% endif %}" aria-current="page" href="{% url 'works' %}" aria-label="Browse works">Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" aria-current="page" href="{% url 'blog' %}" aria-label="Read our blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" aria-current="page" href="{% url 'about' %}" aria-label="About us">About</a>
+                        </li>
+                    </ul>
                 <!-- Search Form -->
                 <form class="d-flex mx-2" role="search" aria-label="Site search" method="GET" action="{% url 'search' %}">
                     <div class="input-group">
@@ -109,10 +109,10 @@
                 </form>
                 
                 <!-- User Dropdown Menu -->
-                <ul class="navbar-nav align-items-center">
-                    {% if user.is_authenticated %}
-                        <div class="d-flex align-items-center">
-                            <li class="nav-item dropdown">
+                
+                    <ul class="navbar-nav align-items-center">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown d-flex align-items-center">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Your account menu">
                                     {% if user.profile.profile_image %}
                                         <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle nav-profile-image">
@@ -127,33 +127,30 @@
                                     <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Log out of account"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
                                 </ul>
                             </li>
-                            
-                            
-                        </div>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_signup' %}" aria-label="Create new account">Register</a>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_signup' %}" aria-label="Create new account">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_login' %}" aria-label="Sign in to your account">Login</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link position-relative" href="{% url 'view_bookcart' %}" aria-label="View your library items">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-book-reader" aria-hidden="true"></i>
+                                    <!-- Bookcart Badge -->
+                                    {% if product_count %}
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                            {{ product_count }}
+                                            <span class="visually-hidden">items in library</span>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_login' %}" aria-label="Sign in to your account">Login</a>
-                        </li>
-                    {% endif %}
-                    <!-- Bookcart Icon -->
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link position-relative" href="{% url 'view_bookcart' %}" aria-label="View your library items">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-book-reader" aria-hidden="true"></i>
-                                <!-- Bookcart Badge -->
-                                {% if product_count %}
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                                        {{ product_count }}
-                                        <span class="visually-hidden">items in library</span>
-                                    </span>
-                                {% endif %}
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -216,10 +213,6 @@
                             rel="noopener noreferrer" aria-label="Visit our Instagram page">
                             <i class="fab fa-instagram" aria-hidden="true"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/rafal-zygula/" class="text-decoration-none text-muted me-2" target="_blank" 
-                            rel="noopener noreferrer" aria-label="Visit my LinkedIn page">
-                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                        </a>
                         <a href="https://linktr.ee/TheAgeofNewEra" class="text-decoration-none text-muted me-2" target="_blank" 
                             rel="noopener noreferrer" aria-label="Visit our LinkTree page">
                             <i class="fab fa-pagelines" aria-hidden="true"></i>
@@ -227,7 +220,7 @@
                     </div>
                     <p class="text-muted">
                         <i class="fas fa-envelope me-2" aria-hidden="true"></i>
-                        <span aria-label="Email address">tempus@valleyberg.com</span><br>
+                        <span>tempus@valleyberg.com</span><br>
                     </p>
                 </div>
             </div>

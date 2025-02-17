@@ -6,7 +6,7 @@ from works.models import Product
 def bookcart_contents(request):
     """
     Context processor for book cart data.
-    
+
     Makes book cart information available to all templates, including:
     - List of cart items with quantities and subtotals
     - Total price of all items

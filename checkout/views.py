@@ -25,7 +25,8 @@ def checkout(request):
     if not request.user.is_authenticated:
         messages.info(
             request,
-            'You are not logged in. To leave a review after purchasing an ebook,'
+            'You are not logged in. To leave a review after'
+            ' purchasing an ebook,'
             ' please register or log in first.'
         )
 
