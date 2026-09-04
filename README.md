@@ -1,5 +1,5 @@
 # TEMPUS Author Platform - bookshop and speculative future author blog
-**Deployed website: [Link to the TEMPUS Author Platform](https://tempusap-74bb3112eef0.herokuapp.com/)**
+**Demo offline — the Heroku dyno was retired. The repository is complete and redeployable.**
 
 ![alt text](documentation/images/image.png)
 
